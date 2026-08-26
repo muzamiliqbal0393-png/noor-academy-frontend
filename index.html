@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noor Academy — Islamabad Police UDC Test Preparation</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-logo">🎓</span>
+      <span><b>NOOR ACADEMY</b><small>Islamabad Police UDC Test Prep</small></span>
+    </div>
+    <div class="nav-links">
+      <a href="#subjects">Subjects</a>
+      <a href="#pattern">Paper Pattern</a>
+      <a href="#features">Features</a>
+      <a class="btn btn-green" href="test.html?mock=1">🚀 Mock Test</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <h1>👮 Islamabad Capital Police — <span class="hl">UDC</span> Online Screening Test</h1>
+  <p>Asal paper jaisa test do • Har subject ka result alag • Result record save • 6000+ MCQs</p>
+  <div class="hero-actions">
+    <a class="btn btn-gold btn-lg" href="test.html?mock=1">🚀 Screening Mock Test Shuru Karein</a>
+    <a class="btn btn-outline btn-lg" href="test.html?mock=1&mode=practice">📖 Practice Mode</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>6000+</b><span>MCQs</span></div>
+    <div class="stat"><b>12</b><span>Subjects</span></div>
+    <div class="stat"><b>500</b><span>Har Subject Mein</span></div>
+    <div class="stat"><b>100</b><span>MCQs Ka Mock</span></div>
+  </div>
+</header>
+
+<main>
+  <!-- ===== SUBJECTS ===== -->
+  <section id="subjects">
+    <h2 class="sec-title">📚 Subject-wise Tests <small>(har subject mein 500 MCQs)</small></h2>
+    <div class="subject-grid" id="subjectGrid"></div>
+  </section>
+
+  <!-- ===== PATTERN ===== -->
+  <section id="pattern" class="card">
+    <h2 class="sec-title">🎯 ICT Police UDC — Paper Pattern (Expected)</h2>
+    <div class="pattern-table">
+      <table>
+        <tr><th>Detail</th><th>Pattern</th></tr>
+        <tr><td>Total Marks</td><td><b>100</b></td></tr>
+        <tr><td>Total MCQs</td><td><b>100</b></td></tr>
+        <tr><td>Time</td><td><b>90–120 Minutes</b></td></tr>
+        <tr><td>Negative Marking</td><td>Nahi (usually)</td></tr>
+        <tr><td>Type</td><td>Objective (MCQ) + (kuch papers mein English/Urdu Essay bhi)</td></tr>
+      </table>
+      <table>
+        <tr><th>Subject</th><th>Weightage (approx)</th></tr>
+        <tr><td>English (Grammar + Vocabulary)</td><td>20%</td></tr>
+        <tr><td>Islamiat</td><td>15–20%</td></tr>
+        <tr><td>Pakistan Studies</td><td>15–20%</td></tr>
+        <tr><td>General Knowledge + Current Affairs</td><td>15–20%</td></tr>
+        <tr><td>Everyday Science</td><td>10%</td></tr>
+        <tr><td>Mathematics</td><td>10%</td></tr>
+        <tr><td>Computer / Job-Related / ICT Police</td><td>10–20%</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section id="features">
+    <h2 class="sec-title">⚡ Test Engine Ki Khususiyat</h2>
+    <div class="feature-grid">
+      <div class="card feature"><div class="fi">⏱</div><h3>Asli Timer</h3><p>Mock test mein 90 minute ka timer — waqt khatam par auto-submit.</p></div>
+      <div class="card feature"><div class="fi">📊</div><h3>Subject-wise Result</h3><p>Har subject ka percentage aur ✅/❌ alag alag — kamzor subject foran maloom.</p></div>
+      <div class="card feature"><div class="fi">🔍</div><h3>Full Review</h3><p>Har sawal ka sahi jawab aur aap ka jawab — kahan ghalti hui, sab nazar aata hai.</p></div>
+      <div class="card feature"><div class="fi">💾</div><h3>Result Record Save</h3><p>Aap ke tamam attempts browser mein mehfooz — "Mera Result Record" mein dekhein.</p></div>
+      <div class="card feature"><div class="fi">📖</div><h3>Practice Mode</h3><p>Jawab foran check hota hai — learning ke liye behtareen.</p></div>
+      <div class="card feature"><div class="fi">⭐</div><h3>Mark for Review</h3><p>Mushkil sawal mark karein, baad mein wapas aayein.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== PLAN ===== -->
+  <section class="card" id="plan">
+    <h2 class="sec-title">✅ 6-Haftay Ka Preparation Plan</h2>
+    <ol class="plan-list">
+      <li><b>Week 1–2:</b> English Grammar + Vocabulary tests (roz 50–100 MCQs).</li>
+      <li><b>Week 2–3:</b> Islamiat + Pakistan Studies (sab se zyada repeated yahan se).</li>
+      <li><b>Week 3–4:</b> General Knowledge + Everyday Science.</li>
+      <li><b>Week 4–5:</b> Computer/IT + Current Affairs + ICT Police/Law section.</li>
+      <li><b>Week 5–6:</b> Rozana 1 Mock Test (100 MCQs, 90 min) — record dekhein, kamzor subjects revise karein.</li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <p><b>🎓 Noor Academy</b> — Sirf tyari ke liye. Asal paper ka pattern change ho sakta hai.</p>
+  <p>Best of luck — aap ki kamyabi hi hamara maqsad hai! 🎓</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script>
+// Build subject cards from MCQ data
+const SUBJECT_EMOJI = {
+  "english-grammar": "📗", "english-vocabulary": "📙", "islamiat": "🕌",
+  "pakistan-studies": "🇵🇰", "general-knowledge": "🌍", "current-affairs": "📰",
+  "everyday-science": "🔬", "mathematics": "➗", "computer-it": "💻",
+  "urdu": "✍️", "ict-police": "👮", "iq": "🧠"
+};
+const grid = document.getElementById("subjectGrid");
+if (typeof MCQ_DATA !== "undefined") {
+  grid.innerHTML = MCQ_DATA.map(s => `
+    <div class="card subj-card">
+      <div class="subj-emoji">${SUBJECT_EMOJI[s.id] || "📚"}</div>
+      <h3>${s.name}</h3>
+      <p>${s.questions.length} MCQs</p>
+      <div class="subj-actions">
+        <a class="btn btn-green" href="test.html?subject=${s.id}&mode=test">✍️ Test</a>
+        <a class="btn btn-outline" href="test.html?subject=${s.id}&mode=practice">📖 Practice</a>
+      </div>
+    </div>`).join("");
+} else {
+  grid.innerHTML = "<p>Data load nahi hua</p>";
+}
+</script>
+</body>
+</html>

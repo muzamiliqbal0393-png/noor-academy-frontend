@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Online Screening Test — Noor Academy</title>
+<style>
+:root{
+  --green:#0b5d46; --green2:#0e7a5c; --gold:#eab308; --bg:#eef3f0;
+  --card:#ffffff; --ink:#14201b; --muted:#5b6b64; --line:#dde6e1;
+  --ok:#16a34a; --no:#dc2626; --mark:#f59e0b;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif; background:var(--bg); color:var(--ink); line-height:1.55}
+nav{background:#0a3d2e;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;position:sticky;top:0;z-index:50}
+nav .nb{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem}
+nav a{color:#ffd76a;text-decoration:none;font-weight:700;font-size:.85rem}
+nav a:hover{text-decoration:underline}
+header{background:linear-gradient(135deg,#0a3d2e 0%, var(--green) 55%, var(--green2) 100%); color:#fff; padding:14px 20px; text-align:center}
+header .brand{font-size:.75rem; letter-spacing:1px; color:#ffd76a; font-weight:700}
+header h1{font-size:1.2rem; margin:2px 0}
+header p{font-size:.78rem; opacity:.9}
+main{max-width:1000px; margin:0 auto; padding:18px 14px 60px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px; box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.hero{text-align:center; padding:26px 16px; background:linear-gradient(180deg,#fbfdfc, #fff)}
+.hero h2{color:var(--green); margin-bottom:6px}
+.hero p{color:var(--muted); font-size:.9rem; margin-bottom:14px}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px}
+.subject-card h3{color:var(--green); font-size:1rem; margin-bottom:2px}
+.subject-card .count{color:var(--muted); font-size:.8rem; margin-bottom:8px}
+.sec-title{margin:18px 0 10px; color:var(--green); font-size:1.1rem}
+.btn{display:inline-block; border:none; border-radius:10px; padding:10px 16px; font-size:.9rem; font-weight:700; cursor:pointer; background:#e2eae6; color:var(--ink); transition:.15s; text-decoration:none}
+.btn:hover{filter:brightness(.95)}
+.btn:disabled{opacity:.4; cursor:not-allowed}
+.btn.primary{background:var(--green); color:#fff}
+.btn.big{background:var(--green); color:#fff; font-size:1.05rem; padding:13px 26px}
+.btn.ghost{background:transparent; border:1.5px solid var(--green); color:var(--green)}
+.btn.danger{background:var(--no); color:#fff}
+.btn.gold{background:var(--gold); color:#1a1a00}
+.row{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.row.center{justify-content:center; margin-top:14px}
+.sel{padding:8px; border-radius:8px; border:1px solid var(--line); background:#fff; margin-bottom:8px; width:100%; font-size:.9rem}
+.test-head{display:flex; justify-content:space-between; align-items:center; background:var(--green); color:#fff; border-radius:12px 12px 0 0; padding:12px 16px; font-size:.95rem}
+.timer{background:#08382a; padding:6px 12px; border-radius:20px; font-weight:800; letter-spacing:1px; color:#ffd76a}
+.timer.warn{background:var(--no); color:#fff; animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.5}}
+.test-meta{background:#f3f8f5; border:1px solid var(--line); border-top:none; padding:8px 16px; font-size:.85rem; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; align-items:center}
+.subj-tag{background:#e6f0ec; color:var(--green); padding:2px 10px; border-radius:12px; font-weight:700; font-size:.75rem}
+.marklbl{display:flex; align-items:center; gap:5px; cursor:pointer; font-size:.8rem}
+.qcard h3{font-size:1.05rem; margin-bottom:14px}
+.options{display:flex; flex-direction:column; gap:10px}
+.option{display:flex; align-items:flex-start; gap:10px; border:1.5px solid var(--line); border-radius:10px; padding:11px 14px; cursor:pointer; transition:.12s; background:#fff}
+.option:hover{border-color:var(--green2); background:#f2faf7}
+.option input{display:none}
+.option.chosen{border-color:var(--green); background:#eaf6f1}
+.option.correct{border-color:var(--ok); background:#eafaf0}
+.option.wrong{border-color:var(--no); background:#fdecec}
+.option b{color:var(--green2); min-width:22px}
+.fb{margin-top:14px; padding:10px 14px; border-radius:10px; font-weight:700; font-size:.9rem}
+.fb.ok{background:#eafaf0; color:var(--ok); border:1px solid #b9e8c9}
+.fb.no{background:#fdecec; color:var(--no); border:1px solid #f3bfbf}
+.navrow{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+.navrow .btn{flex:1; min-width:100px}
+.palette{display:flex; flex-wrap:wrap; gap:6px; padding:12px}
+.pal{width:34px; height:34px; border-radius:8px; border:1px solid var(--line); background:#fff; cursor:pointer; font-size:.8rem; font-weight:700}
+.pal.current{background:var(--gold); border-color:#c7940a; color:#1a1a00}
+.pal.answered{background:var(--green); border-color:var(--green); color:#fff}
+.pal.marked{background:#fff3d6; border-color:var(--mark); color:#92610a}
+.score-wrap{text-align:center; padding:10px}
+.circle{width:150px; height:150px; border-radius:50%; background:conic-gradient(var(--green) calc(var(--p)*1%), #dfe8e3 0); display:flex; align-items:center; justify-content:center; margin:10px auto}
+.circle-inner{width:118px; height:118px; background:#fff; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:800}
+.circle-inner .pct{font-size:1.6rem; color:var(--green)}
+.verdict{font-weight:800; font-size:1.05rem; margin:6px 0}
+.verdict.pass{color:var(--ok)} .verdict.fail{color:var(--no)}
+table{width:100%; border-collapse:collapse; font-size:.85rem}
+th,td{border:1px solid var(--line); padding:7px 9px; text-align:center}
+th{background:#eef6f2; color:var(--green)}
+.review-item{border:1px solid var(--line); border-radius:10px; margin-bottom:10px; overflow:hidden}
+.review-item summary{padding:10px 14px; cursor:pointer; background:#f7faf8; font-weight:700; font-size:.9rem}
+.review-body{padding:10px 14px; font-size:.9rem}
+.review-body .opt{margin:4px 0; padding:6px 10px; border-radius:8px; background:#f2f5f3}
+.review-body .opt.right{background:#eafaf0; border:1px solid #b9e8c9}
+.review-body .opt.mine{background:#fdecec; border:1px solid #f3bfbf}
+.review-body .tag{font-size:.7rem; background:#e6f0ec; color:var(--green); padding:1px 8px; border-radius:10px}
+footer{text-align:center; color:var(--muted); font-size:.75rem; padding:14px}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nb">🎓 NOOR ACADEMY — Screening Test</div>
+  <a href="index.html">🏠 Home</a>
+</nav>
+<header>
+  <div class="brand">🎓 NOOR ACADEMY</div>
+  <h1>👮 ICT Police UDC — Online Screening Test</h1>
+  <p>6000+ MCQs • Past Paper Style • Har Subject Ka Result Alag • Record Save</p>
+</header>
+<main id="app"></main>
+<footer>Noor Academy • Sirf tyari ke liye — asal paper ka pattern change ho sakta hai</footer>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
