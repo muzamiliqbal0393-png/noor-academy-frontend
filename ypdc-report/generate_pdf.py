@@ -65,6 +65,7 @@ class Report(FPDF):
         self.set_auto_page_break(True, margin=25)
         self.cover_pages = 1  # only the cover skips header/footer (absolute page numbering)
         self.sec_no = 0
+        self.tbl_no = 0
 
     # ------------------------------------------------- header / footer
     def header(self):
@@ -137,14 +138,14 @@ class Report(FPDF):
         self.ln(1)
 
     def body(self, text, size=9.8, align="J", gap=2.5, bold=False):
-        self.set_font("DejaVu", "B" if bold else "", size)
+        self.set_font("Serif", "B" if bold else "", size)
         self.set_text_color(*INK)
         self.multi_cell(w=0, text=text, align=align, markdown=True,
                         new_x="LMARGIN", new_y="NEXT")
         self.ln(gap)
 
     def bullets(self, items, size=9.8, gap=1.2):
-        self.set_font("DejaVu", "", size)
+        self.set_font("Serif", "", size)
         self.set_text_color(*INK)
         for it in items:
             x = self.l_margin
@@ -152,7 +153,7 @@ class Report(FPDF):
             self.set_font("DejaVu", "B", size)
             self.set_text_color(*GOLD_DARK)
             self.write(5.2, "▸  ")
-            self.set_font("DejaVu", "", size)
+            self.set_font("Serif", "", size)
             self.set_text_color(*INK)
             self.multi_cell(w=self.epw - 7, text=it, markdown=True,
                             new_x="LMARGIN", new_y="NEXT")
@@ -165,7 +166,7 @@ class Report(FPDF):
             self.set_font("DejaVu", "B", size)
             self.set_text_color(*PRIMARY)
             self.write(5.2, f"{i}. ")
-            self.set_font("DejaVu", "", size)
+            self.set_font("Serif", "", size)
             self.set_text_color(*INK)
             self.multi_cell(w=self.epw - 8, text=it, markdown=True,
                             new_x="LMARGIN", new_y="NEXT")
@@ -200,8 +201,17 @@ class Report(FPDF):
         self.rect(x, y0, 2.6, y1 - y0, style="F")
         self.set_y(y1 + 3)
 
-    def mtable(self, headers, rows, widths=None, size=8.8, lh=5.4, align="LEFT"):
-        """Styled table: dark-green header, grid, repeat headings."""
+    def mtable(self, headers, rows, widths=None, size=8.8, lh=5.4, align="LEFT", caption=None):
+        """Styled table: dark-green header, grid, repeat headings, optional numbered caption."""
+        if caption:
+            self.need(18)
+            self.tbl_no += 1
+            self.set_font("DejaVu", "B", 8.6)
+            self.set_text_color(*PRIMARY)
+            self.cell(w=self.epw, text=f"Table {self.tbl_no} — {caption}",
+                      new_x="LMARGIN", new_y="NEXT")
+            self.ln(1.5)
+            self.set_text_color(*INK)
         if widths is None:
             n = len(headers)
             widths = [self.epw / n] * n
@@ -266,7 +276,7 @@ class Report(FPDF):
         # badge
         self.set_font("DejaVu", "B", 9)
         self.set_text_color(*GOLD_DARK)
-        self.cell(w=self.epw, text="YOUTH  •  PEACE  •  DEVELOPMENT  •  COMMUNITY", align="C",
+        self.cell(w=self.epw, text="YOUNG  •  PEACE  •  DEVELOPMENT  •  CORPS", align="C",
                   new_x="LMARGIN", new_y="NEXT")
         self.ln(4)
         # emblem (badge with text inside the circle)
@@ -320,17 +330,18 @@ class Report(FPDF):
                   align="C", new_x="LMARGIN", new_y="NEXT")
         self.set_y(yb + 12)
         self.kpi_strip([("7", "PORTALS"), ("81", "MODULES"),
-                        ("6", "USER ROLES"), ("v1.0", "VERSION")])
+                        ("7", "USER ROLES"), ("v1.0", "VERSION")])
         self.ln(1)
         # meta table
         self.set_font("DejaVu", "", 9.5)
         meta = [
             ("Document Title", "YPDC Integrated Portal System — System Report"),
-            ("Version", "1.0  •  Initial Release"),
+            ("Document ID", "YPDC-SRS-2026-01"),
+            ("Version", "1.0  •  Issued for Review"),
             ("Date", "10 September 2026"),
             ("Classification", "Official — For YPDC Leadership & Development Team"),
             ("Coverage", "Student • Member • Directorate • Faculty • Admin • Alumni • Public"),
-            ("Status", "Approved for Planning & Development"),
+            ("Status", "DRAFT — For Review & Approval"),
         ]
         row_h = 6.5
         yc = self.get_y()
@@ -387,7 +398,7 @@ class Report(FPDF):
 # ===================================================================== data
 PORTALS = [
     {
-        "n": "1", "name": "Student Portal",
+        "n": "1", "name": "Student Portal", "pre": "STU",
         "tag": "For enrolled students — participation, learning & recognition",
         "objective": ("The Student Portal is the primary gateway for enrolled students to engage with YPDC. "
                       "It covers profile management, membership application, event discovery and registration, "
@@ -416,19 +427,19 @@ PORTALS = [
              "Post-event forms • Star ratings • Suggestions box • Response visibility"),
         ],
         "workflows": [
-            "**Membership journey:** Student applies → Admin verifies → ID issued → renewals tracked.",
-            "**Event journey:** Browse → register → QR ticket → attend (QR scan) → feedback → certificate auto-issued.",
-            "**Volunteer journey:** Apply → shortlisted → hours logged → supervisor approves → certificate + points.",
+            "**Membership journey:** Student applies → Admin verifies → ID issued → renewals tracked (STU-02).",
+            "**Event journey:** Browse → register → QR ticket → attend (QR scan) → feedback → certificate auto-issued (STU-03, STU-04, STU-06, STU-07, STU-10).",
+            "**Volunteer journey:** Apply → shortlisted → hours logged → supervisor approves → certificate + points (STU-05, STU-06, STU-07).",
         ],
         "kpis": ["Active students", "Event registrations", "Volunteer hours", "Avg. feedback score"],
     },
     {
-        "n": "2", "name": "Member Portal",
+        "n": "2", "name": "Member Portal", "pre": "MBR",
         "tag": "For registered YPDC members — duties, tasks & performance",
         "objective": ("The Member Portal serves officially inducted YPDC members working under directorates. "
                       "Beyond student features, it adds a digital Member ID, directorate affiliation, defined "
                       "responsibilities, task management, duty rosters, performance scoring and activity reporting — "
-                      "making every member accountable, guided and recognised."),
+                      "with clear duties and a visible performance record."),
         "modules": [
             ("Profile & Member ID", "Official member profile with a scannable digital ID card.",
              "Digital ID card with QR • Tenure & status • Renewal alerts • ID reprint request"),
@@ -452,14 +463,14 @@ PORTALS = [
              "Push/email/SMS • Priority flags • Action links (approve/submit)"),
         ],
         "workflows": [
-            "**Task lifecycle:** Lead assigns → member accepts → submits evidence → lead reviews → scored.",
-            "**Duty lifecycle:** Roster published → member checks in (QR) → duty logged → hours counted.",
-            "**Performance cycle:** Monthly auto-score (tasks + attendance + duties) → lead review → published.",
+            "**Task lifecycle:** Lead assigns → member accepts → submits evidence → lead reviews → scored (MBR-04, MBR-08).",
+            "**Duty lifecycle:** Roster published → member checks in (QR) → duty logged → hours counted (MBR-05, MBR-06).",
+            "**Performance cycle:** Monthly auto-score (tasks + attendance + duties) → lead review → published (MBR-04, MBR-05, MBR-06, MBR-08, MBR-09).",
         ],
         "kpis": ["Active members", "Task completion %", "Duty fulfilment %", "Avg. performance score"],
     },
     {
-        "n": "3", "name": "Directorate Portal",
+        "n": "3", "name": "Directorate Portal", "pre": "DIR",
         "tag": "For directorate leadership & teams — planning, execution & accountability",
         "objective": ("Each YPDC directorate (e.g. Events, Media, Volunteer Management) operates as a semi-autonomous "
                       "unit. The Directorate Portal gives directors, assistant directors and team members shared tools "
@@ -494,19 +505,19 @@ PORTALS = [
              "Composite score • Trend charts • Inter-directorate ranking • Review notes"),
         ],
         "workflows": [
-            "**Proposal flow:** Directorate drafts → Admin reviews → approved/revision → event published → executed → report filed.",
-            "**Planning flow:** Objectives set → work plan derived → tasks assigned → weekly review → monthly report.",
-            "**Governance flow:** Meetings logged → minutes uploaded → action items become tasks → tracked to closure.",
+            "**Proposal flow:** Directorate drafts → Admin reviews → approved/revision → event published → executed → report filed (DIR-07, DIR-08, DIR-10).",
+            "**Planning flow:** Objectives set → work plan derived → tasks assigned → weekly review → monthly report (DIR-04, DIR-05, DIR-06, DIR-10).",
+            "**Governance flow:** Meetings logged → minutes uploaded → action items become tasks → tracked to closure (DIR-06, DIR-09, DIR-12).",
         ],
         "kpis": ["Objectives achieved %", "Events delivered", "Proposal approval rate", "Directorate score"],
     },
     {
-        "n": "4", "name": "Faculty Portal",
+        "n": "4", "name": "Faculty Portal", "pre": "FAC",
         "tag": "For faculty mentors & advisors — guidance, supervision & approvals",
         "objective": ("Faculty members act as mentors, advisors, judges and approvers. The Faculty Portal recognises "
                       "their academic identity while defining their YPDC role, connecting them to events and student "
                       "activities, and routing approval requests (proposals, leaves, certificates) to them with full "
-                      "context — respecting their time while keeping governance strong."),
+                      "context — while keeping every approval traceable."),
         "modules": [
             ("Faculty Profile", "Academic and professional profile with photo and credentials.",
              "Qualifications • Experience • Expertise tags • Contact & availability"),
@@ -528,19 +539,19 @@ PORTALS = [
              "Priority inbox • Calendar sync • Digest emails"),
         ],
         "workflows": [
-            "**Approval flow:** Request raised → routed to mapped faculty → approve/return with remarks → audit logged.",
-            "**Mentoring flow:** Mentees assigned → sessions logged → term report submitted → recognised.",
-            "**Event flow:** Invitation → acceptance → materials shared → session delivered → feedback captured.",
+            "**Approval flow:** Request raised → routed to mapped faculty → approve/return with remarks → audit logged (FAC-06).",
+            "**Mentoring flow:** Mentees assigned → sessions logged → term report submitted → recognised (FAC-05, FAC-07).",
+            "**Event flow:** Invitation → acceptance → materials shared → session delivered → feedback captured (FAC-04).",
         ],
         "kpis": ["Sessions delivered", "Approvals turnaround", "Mentees guided", "Mentor rating"],
     },
     {
-        "n": "5", "name": "Admin Portal",
-        "tag": "For system administrators — control tower of the entire platform",
-        "objective": ("The Admin Portal is the command centre. It provides a real-time dashboard, complete user/member/"
+        "n": "5", "name": "Admin Portal", "pre": "ADM",
+        "tag": "For system administrators — central administration workspace",
+        "objective": ("The Admin Portal is the central workspace. It provides a real-time dashboard, complete user/member/"
                       "directorate/faculty management, event governance, a unified approvals inbox, attendance and "
                       "certificate control, analytics, notifications, website content, documents, complaints handling and "
-                      "granular roles & permissions — everything needed to run YPDC digitally, transparently and at scale."),
+                      "granular roles & permissions — for day-to-day operations, governance and reporting."),
         "modules": [
             ("Dashboard", "Real-time command view: counts, trends, pending items and alerts.",
              "KPI cards • Charts • Pending-approval widget • Quick actions • Activity feed"),
@@ -561,7 +572,7 @@ PORTALS = [
             ("Certificates", "Design templates, bulk-issue and verify all certificates.",
              "Template designer • Bulk issue • QR verification portal • Revocation"),
             ("Reports & Analytics", "Pre-built and custom reports with exports and scheduled digests.",
-             "100+ KPIs • Custom builder • PDF/Excel export • Scheduled emails • Charts"),
+             "40+ indicators • Custom builder • PDF/Excel export • Scheduled emails • Charts"),
             ("Notifications", "Broadcast and targeted multi-channel communication engine.",
              "Templates • Segments • Push/email/SMS • Delivery reports • Announcements"),
             ("Website Content", "Manage all public-portal content without developer help (CMS).",
@@ -571,22 +582,22 @@ PORTALS = [
             ("Feedback / Complaints", "Grievance redressal with ticketing, SLA and escalation.",
              "Ticket queue • Categories • SLA timers • Escalation • Resolution & rating"),
             ("Roles & Permissions", "Granular, least-privilege access control for every module & action.",
-             "Role builder • 200+ permissions • Delegation • Temporary access • Audit"),
+             "Role builder • permission catalogue • Delegation • Temporary access • Audit"),
         ],
         "workflows": [
-            "**Approval triage:** All requests land in one queue → auto-routed by type → SLA-monitored → decided → notified.",
-            "**Event governance:** Proposal → budget/venue check → approve → publish → monitor live → close with report & certificates.",
-            "**Grievance flow:** Complaint ticketed → acknowledged in 24h → assigned → resolved → complainant rates resolution.",
+            "**Approval triage:** All requests land in one queue → auto-routed by type → SLA-monitored → decided → notified (ADM-07).",
+            "**Event governance:** Proposal → budget/venue check → approve → publish → monitor live → close with report & certificates (ADM-06, ADM-08, ADM-09).",
+            "**Grievance flow:** Complaint ticketed → acknowledged in 24h → assigned → resolved → complainant rates resolution (ADM-14).",
         ],
         "kpis": ["Pending approvals", "SLA compliance %", "Grievance resolution time", "Platform adoption %"],
     },
     {
-        "n": "6", "name": "Alumni Portal",
+        "n": "6", "name": "Alumni Portal", "pre": "ALU",
         "tag": "For graduates & former members — lifelong network & contribution",
         "objective": ("YPDC relationships should not end at graduation or tenure completion. The Alumni Portal keeps "
                       "alumni connected through rich profiles, a searchable network, mentorship programs, events, "
-                      "achievements, career opportunities and structured ways to volunteer or support — turning former "
-                      "members into lifelong ambassadors, mentors and partners."),
+                      "achievements, career opportunities and structured ways to volunteer or support, "
+                      "so former members stay connected as mentors, employers and supporters."),
         "modules": [
             ("Alumni Profile", "Lifelong identity carrying forward the member/student history.",
              "Auto-carried history • Photo & bio • Privacy controls • Verified badge"),
@@ -610,14 +621,14 @@ PORTALS = [
              "Support catalogue • Pledges • Fund tracking • Impact reports & receipts"),
         ],
         "workflows": [
-            "**Mentorship flow:** Alumni registers as mentor → matching → sessions scheduled → hours & feedback logged.",
-            "**Career flow:** Opportunity posted → screened → published → applications → shortlist → closure update.",
-            "**Give-back flow:** Pledge made → acknowledged → utilised with evidence → impact report shared.",
+            "**Mentorship flow:** Alumni registers as mentor → matching → sessions scheduled → hours & feedback logged (ALU-06).",
+            "**Career flow:** Opportunity posted → screened → published → applications → shortlist → closure update (ALU-09).",
+            "**Give-back flow:** Pledge made → acknowledged → utilised with evidence → impact report shared (ALU-10).",
         ],
         "kpis": ["Registered alumni", "Mentorship hours", "Jobs posted/filled", "Support contributions"],
     },
     {
-        "n": "7", "name": "Guest / Public Portal",
+        "n": "7", "name": "Guest / Public Portal", "pre": "PUB",
         "tag": "For the world — YPDC's public face & front door",
         "objective": ("The Guest/Public Portal is YPDC's website — open to everyone without login. It communicates "
                       "identity (about, vision, leadership, directorates), showcases work (projects, events, news, "
@@ -655,13 +666,61 @@ PORTALS = [
              "Categorised FAQs • Search • Ask-a-question • Helpful-vote tracking"),
         ],
         "workflows": [
-            "**Conversion flow:** Visitor reads → CTA clicked → membership/volunteer form → ticketed → admin processes → welcome journey.",
-            "**Publishing flow:** Admin drafts content in CMS → preview → publish/schedule → appears instantly on public site.",
-            "**Enquiry flow:** Contact form → auto-ticket + acknowledgement → assigned → responded → feedback on response.",
+            "**Conversion flow:** Visitor reads → CTA clicked → membership/volunteer form → ticketed → admin processes → welcome journey (PUB-11, PUB-12).",
+            "**Publishing flow:** Admin drafts content in CMS → preview → publish/schedule → appears instantly on public site (ADM-12).",
+            "**Enquiry flow:** Contact form → auto-ticket + acknowledgement → assigned → responded → feedback on response (PUB-13, ADM-14).",
         ],
         "kpis": ["Monthly visitors", "Membership applications", "Volunteer signups", "Content freshness"],
     },
 ]
+
+
+# ============================================================ document control
+def doc_control(pdf):
+    """Unnumbered front-matter page: history, approvals, distribution."""
+    pdf.add_page()
+    y = pdf.get_y()
+    pdf.set_fill_color(*PRIMARY)
+    pdf.rect(pdf.l_margin, y, pdf.epw, 10.5, style="F")
+    pdf.set_fill_color(*GOLD)
+    pdf.rect(pdf.l_margin, y, 3.2, 10.5, style="F")
+    pdf.set_xy(pdf.l_margin + 6, y + 1.6)
+    pdf.set_font("DejaVu", "B", 12.5)
+    pdf.set_text_color(255, 255, 255)
+    pdf.cell(w=pdf.epw - 12, text="Document Control", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_text_color(*INK)
+    pdf.set_y(y + 13.5)
+    pdf.body("This page records the issue history, approvals and distribution of the report. "
+             "The authoritative copy is the PDF held in the project repository; printed copies are uncontrolled.")
+    pdf.sub2("Version history")
+    pdf.mtable(["Version", "Date", "Author", "Change"],
+              [["0.1", "28 Aug 2026", "Requirements Team", "Outline and module-inventory review."],
+               ["1.0", "10 Sep 2026", "Requirements Team", "Issued for review: all portals, workflows, roadmap."]],
+              widths=[18, 30, 42, 90])
+    pdf.sub2("Approvals")
+    pdf.mtable(["Role", "Name", "Signature", "Date"],
+              [["Product Owner (YPDC)", "", "", ""],
+               ["YPDC Leadership", "", "", ""],
+               ["Technical Lead", "", "", ""]],
+              widths=[55, 55, 40, 30])
+    pdf.sub2("Distribution")
+    pdf.bullets([
+        "**YPDC Leadership** — review and approval.",
+        "**Directorate Heads** — scope confirmation for their units.",
+        "**Development Team** — estimation and build.",
+        "**Faculty Advisors** — approval-workflow confirmation.",
+    ])
+    pdf.sub2("Related documents")
+    pdf.bullets([
+        "Module inventory shared by YPDC stakeholders (September 2026) — baseline for Sections 4–10.",
+        "Brand and content pack (logo, copy, photos) — to be supplied before Phase 1 (see Assumption A-02).",
+    ])
+    pdf.sub2("Conventions used in this report")
+    pdf.bullets([
+        "**Req. ID** (e.g. STU-01): stable requirement identifier used in Tables 3–11 and Table 20.",
+        "**TBC**: to be confirmed during detailed design; confirmed values update this report via change control.",
+        "**Must / Should / Could**: applied to sub-requirements during detailed design; all 81 modules are in baseline scope.",
+    ])
 
 
 # ===================================================================== build
@@ -671,11 +730,16 @@ def build(path):
     pdf.add_font("DejaVu", "B", FONT_BLD)
     pdf.add_font("DejaVu", "I", FONT_REG)
     pdf.add_font("DejaVu", "BI", FONT_BLD)
+    pdf.add_font("Serif", "", "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf")
+    pdf.add_font("Serif", "B", "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf")
+    pdf.add_font("Serif", "I", "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf")
+    pdf.add_font("Serif", "BI", "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf")
     pdf.set_font("DejaVu", "", 9.8)
     pdf.alias_nb_pages("{nb}")
 
-    # ---------------- cover + TOC
+    # ---------------- cover + document control + TOC
     pdf.cover()
+    doc_control(pdf)
     pdf.add_page()
     pdf.insert_toc_placeholder(render_toc, pages=2, allow_extra_pages=False)
 
@@ -687,7 +751,7 @@ def build(path):
               "on the public website, registers as a volunteer or member, participates in events, takes on directorate "
               "responsibilities, gets mentored by faculty, earns certificates and achievements, and finally continues "
               "as alumni — mentor, employer or supporter."))
-    pdf.kpi_strip([("7", "PORTALS"), ("81", "MODULES"), ("15+", "WORKFLOWS"), ("100+", "REPORT KPIs")])
+    pdf.kpi_strip([("7", "PORTALS"), ("81", "MODULES"), ("25+", "WORKFLOWS"), ("40+", "INDICATORS")])
     pdf.body(("This report specifies all **81 functional modules**, the **roles & permissions model**, **cross-portal "
               "workflows** (membership, events, tasks, approvals, attendance, certificates, grievances), the **reporting "
               "framework**, **non-functional requirements** and a **phased implementation roadmap**. It is written to serve "
@@ -696,19 +760,19 @@ def build(path):
     pdf.sub("Key decisions this report enables")
     pdf.bullets([
         "**Scope lock:** exactly what each portal contains — no ambiguity during development.",
-        "**Role model:** who can see and do what — enforced by 200+ granular permissions.",
+        "**Role model:** who can see and do what — enforced by a granular permission catalogue (Section 11).",
         "**Workflow standards:** one approved way for proposals, approvals, attendance and certificates.",
         "**Build order:** Phase 1 (foundation + public site + admin) → Phase 4 (alumni & analytics) — value delivered early.",
     ])
     pdf.info_box("Reading guide",
                  ("Sections 2–3 give context and architecture. Sections 4–10 specify each portal module-by-module. "
-                  "Sections 11–14 define cross-cutting systems, data, workflows and analytics. Sections 15–18 cover "
-                  "quality, roadmap, risks and conclusions. Appendix A is the master 81-module checklist."))
+                  "Sections 11–14 define cross-cutting systems, data, workflows and analytics. Sections 15–19 cover "
+                  "quality, assumptions, roadmap, governance and conclusions. Appendix A is the master 81-module checklist."))
 
     # ---------------- 2. About & Purpose
     pdf.section("About YPDC & Document Purpose")
     pdf.sub("About YPDC")
-    pdf.body(("**YPDC (Youth Peace & Development Council)** is a youth-led organisation dedicated to peace-building, "
+    pdf.body(("**YPDC (Young Peace & Development Corps)** is a youth-led organisation dedicated to peace-building, "
               "leadership development, community service and skills empowerment. It operates through specialised "
               "**directorates**, guided by **faculty mentors**, powered by **student and member volunteers**, and "
               "sustained by an **alumni network** — all visible to the public through an open, transparent platform."))
@@ -721,6 +785,7 @@ def build(path):
     pdf.sub("Document purpose & scope")
     pdf.body("In scope: all 7 portals, 81 modules, roles, workflows, reports, notifications, documents and grievance handling. "
              "Out of scope (for v1.0): mobile native apps (responsive web first), payroll/finance ERP, and third-party LMS integration — all planned as Phase-5 extensions.")
+    pdf.body("Baseline source: module inventory shared by YPDC stakeholders (September 2026), structured into Sections 4–10 and Appendix A. Detailed design may split a module into sub-requirements; Req. IDs remain stable.")
     pdf.sub("Stakeholders")
     pdf.mtable(["Stakeholder", "Interest & responsibility"],
               [["YPDC Leadership / Patrons", "Vision, approvals, strategic oversight"],
@@ -730,7 +795,7 @@ def build(path):
                ["Alumni", "Mentorship, careers, networking, support"],
                ["Admin / IT Team", "Platform operations, content, compliance, support"],
                ["Public / Guests", "Discovery, trust, registration, enquiries"]],
-              widths=[52, 128])
+              widths=[52, 128], caption="Stakeholders and responsibilities")
 
     # ---------------- 3. System overview
     pdf.section("System Overview & Architecture")
@@ -743,7 +808,8 @@ def build(path):
                ["5", "Admin Portal", "Administrators", "15", "Operate, govern & analyse everything"],
                ["6", "Alumni Portal", "Graduates / ex-members", "10", "Network, mentor, hire & support"],
                ["7", "Guest / Public Portal", "Everyone (no login)", "14", "Showcase, inform & convert visitors"]],
-              widths=[8, 40, 38, 16, 78])
+              widths=[8, 40, 38, 16, 78], caption="The seven portals at a glance")
+    pdf.body("Each portal is specified in Sections 4–10 (module registers, Tables 3–11). Table 20 consolidates all 81 modules as the scope baseline.", size=9.3)
     pdf.sub("Access model")
     pdf.bullets([
         "**Single Sign-On (SSO):** one account, multiple roles — a member who is also a student sees both portals via a role switcher.",
@@ -767,13 +833,42 @@ def build(path):
     # ---------------- 4-10. Portals
     for p in PORTALS:
         pdf.section(f"Portal {p['n']} — {p['name']}")
-        pdf.body(f"{p['tag']}  •  **{len(p['modules'])} modules**", align="L")
+        pdf.body(f"{p['tag']}  •  **{len(p['modules'])} modules ({p['pre']}-01 to {p['pre']}-{len(p['modules']):02d})**", align="L")
         pdf.body(p["objective"])
         pdf.sub2("Module specifications")
-        rows = [(m, pu, kf) for (m, pu, kf) in p["modules"]]
-        pdf.mtable(["Module", "Purpose", "Key features"], rows, widths=[38, 66, 76], size=8.4)
+        rows = [(f"{p['pre']}-{i+1:02d}", m, pu, kf) for i, (m, pu, kf) in enumerate(p["modules"])]
+        pdf.mtable(["ID", "Module", "Purpose", "Key features"], rows, widths=[16, 30, 58, 76],
+                   size=8.4, caption=f"Module register — {p['name']}")
         pdf.sub2("Key workflows")
         pdf.bullets(p["workflows"])
+        if p["n"] == "2":
+            pdf.sub2("Membership and performance rules (proposed, TBC)")
+            pdf.bullets([
+                "**Attendance below 60%** in a quarter flags the member for counselling (TBC).",
+                "**Certificates** require the attendance threshold plus completed feedback (TBC).",
+                "**Performance weighting** (proposed): tasks 40%, duties and attendance 40%, reporting 20% (TBC).",
+            ])
+        if p["n"] == "3":
+            pdf.sub2("Governance cadence (proposed)")
+            pdf.mtable(["Forum", "Frequency", "Chair", "Inputs", "Outputs"],
+                      [["Team standup", "Weekly", "Asst. Director", "Task board", "Priorities, blockers log"],
+                       ["Directorate review", "Monthly", "Director", "Activity data, attendance", "Monthly report, scores"],
+                       ["OKR review", "Quarterly", "Director + Admin", "Objective progress", "Next-quarter objectives"],
+                       ["Planning workshop", "Quarterly", "Director", "Reports, proposals", "Work plan, event pipeline"]],
+                      widths=[34, 22, 30, 44, 50], size=8.4,
+                      caption="Directorate governance cadence (proposed)")
+        if p["n"] == "5":
+            pdf.sub2("Approval RACI — extract (TBC)")
+            pdf.mtable(["Request", "Requester", "Approver", "Informed", "SLA (proposed)"],
+                      [["Membership application", "Student / Guest", "Admin", "Directorate", "3 working days"],
+                       ["Event proposal", "Directorate", "Admin", "Members", "5 working days"],
+                       ["Nominated certificate", "Member / Lead", "Admin", "Recipient", "5 working days"],
+                       ["Member leave", "Member", "Director / AD", "Admin", "2 working days"],
+                       ["Complaint", "Any user", "Admin", "Complainant", "24 h acknowledge; 7-day resolve"],
+                       ["Content publish", "Media / Admin", "Media lead", "Public", "1 working day"]],
+                      widths=[36, 30, 32, 30, 52], size=8.2,
+                      caption="Approval RACI, extract")
+            pdf.body("The full RACI is agreed at kickoff; the SLAs above are starting proposals.", size=8.8)
         pdf.sub2("Portal success metrics")
         pdf.bullets(["**" + k + "** — monthly KPI on the Admin dashboard and digest reports." for k in p["kpis"]])
 
@@ -782,7 +877,7 @@ def build(path):
     pdf.sub("Authentication, roles & permissions")
     pdf.body(("Access follows **least privilege**: every action maps to a permission; permissions bundle into roles; "
               "roles attach to users (a user may hold several, e.g. Member + Volunteer Lead). Sensitive actions "
-              "(approvals, certificate issuance, data export) require explicit grants and leave an **immutable audit log**."))
+              "(approvals, certificate issuance, data export) require explicit grants and leave an **immutable audit log** (Table 12)."))
     pdf.mtable(["Role", "Sees", "Can do (examples)"],
               [["Guest", "Public portal only", "Browse, register interest, verify certificates, contact"],
                ["Student", "Student portal", "Apply, register, volunteer, feedback, download own certificates"],
@@ -791,7 +886,7 @@ def build(path):
                ["Faculty", "Faculty portal", "Mentor, approve, evaluate, report"],
                ["Alumni", "Alumni portal", "Network, mentor, post jobs, pledge support"],
                ["Admin", "Everything", "Configure, approve, publish, issue, analyse, delegate"]],
-              widths=[30, 50, 100])
+              widths=[30, 50, 100], caption="Access matrix (roles and capabilities)")
     pdf.sub("Events lifecycle (unified across portals)")
     pdf.steps([
         "**Propose:** Directorate submits proposal (objectives, budget, venue, team) → Admin review → approve / return with remarks.",
@@ -847,7 +942,7 @@ def build(path):
                ["Governance", "Application/ApprovalRequest, Report, Document (+versions), FeedbackResponse, ComplaintTicket (+SLA)"],
                ["Outreach", "NewsPost, Project, Publication, GalleryAlbum, PageContent, FAQ, Enquiry, NewsletterSubscriber"],
                ["Career/ Alumni", "EmploymentRecord, Skill, Connection, Mentorship (+sessions), JobPost, JobApplication, Pledge"]],
-              widths=[38, 142])
+              widths=[38, 142], caption="Core data entities by domain")
     pdf.info_box("Data integrity rules (enforced in v1.0)",
                  ("One person = one User record (CNIC/email unique). Member IDs are sequential and never reused. "
                   "Certificates are immutable once issued (revocation creates a new state, never edits). "
@@ -882,7 +977,7 @@ def build(path):
     pdf.section("Reports & Analytics Framework")
     pdf.body(("Every portal contributes data to a shared analytics layer. Admin gets the full catalogue; directors, "
               "faculty and members get role-filtered views of their own scope. All reports export to **PDF/Excel** and "
-              "can be **scheduled by email** (daily/weekly/monthly)."))
+              "can be **scheduled by email** (daily/weekly/monthly) (Table 14)."))
     pdf.mtable(["Category", "Example reports / KPIs", "Audience"],
               [["Participation", "Registrations, footfall, volunteer hours, repeat-participation rate", "All leads, Admin"],
                ["Membership", "Applications funnel, approvals, renewals, drop-offs, ID issuance", "Admin, Directors"],
@@ -894,7 +989,7 @@ def build(path):
                ["Grievance", "Tickets by category/SLA, resolution time, satisfaction rating", "Leadership"],
                ["Outreach", "Visitors, conversions, news reach, gallery/publication engagement", "Media, Admin"],
                ["Alumni & career", "Registrations, mentorship hours, jobs posted/filled, pledges & impact", "Leadership"]],
-              widths=[32, 92, 56])
+              widths=[32, 92, 56], caption="Reports and analytics catalogue")
     pdf.info_box("Decision cadence (recommended)",
                  ("Weekly: pending approvals, overdue tasks, upcoming events. Monthly: directorate scorecards, "
                   "attendance & grievance review. Quarterly: OKR review, alumni & outreach analysis. Annually: impact "
@@ -912,42 +1007,64 @@ def build(path):
                ["Scalability", "Modular services;Bulk operations (import, issue, notify) queued in background jobs"],
                ["Maintainability", "CMS-managed content; template-managed certificates/notifications; documented APIs for Phase-5 apps"],
                ["Auditability", "Immutable logs for approvals, issuance, permission changes and exports; monthly audit extract"]],
-              widths=[34, 146])
+              widths=[34, 146], caption="Non-functional requirements (v1.0 targets)")
 
-    # ---------------- 16. Roadmap
+    # ---------------- 16. Assumptions, constraints & dependencies
+    pdf.section("Assumptions, Constraints & Dependencies")
+    pdf.body("The delivery plan in Section 17 holds while the items in Table 16 stand. "
+             "Anything marked **TBC** is confirmed during detailed design and recorded through change control (Section 18).")
+    pdf.mtable(["ID", "Type", "Statement", "Impact / owner"],
+              [["A-01", "Assumption", "YPDC nominates a Product Owner and one content owner per directorate before Phase 1 kickoff.", "Schedule — YPDC Leadership"],
+               ["A-02", "Assumption", "Brand kit, leadership profiles and existing member/event records arrive in the agreed templates.", "Content, migration — Media / Admin"],
+               ["A-03", "Assumption", "Urdu content is authored or reviewed by YPDC-nominated reviewers.", "CMS workflow — Content owners"],
+               ["C-01", "Constraint", "v1.0 is responsive web only; native mobile apps are Phase 5.", "Scope — agreed"],
+               ["C-02", "Constraint", "Bulk jobs (imports, issuance, broadcasts) run in the background; no real-time guarantee beyond in-app delivery.", "Architecture"],
+               ["C-03", "Constraint", "Staging uses masked data; production access is role-based and logged.", "Security"],
+               ["D-01", "Dependency", "Email/SMS/push gateway accounts and sender IDs are provisioned before Phase 2.", "Notifications — YPDC / IT"],
+               ["D-02", "Dependency", "Check-in devices and venue connectivity are arranged per event.", "Attendance — Event teams"],
+               ["D-03", "Dependency", "Faculty approval SLAs are agreed before Phase 3 UAT.", "Governance — Faculty leads"]],
+              widths=[13, 26, 91, 50], caption="Assumptions, constraints and dependencies")
+
+    # ---------------- 17. Roadmap
     pdf.section("Implementation Roadmap (phased delivery)")
     pdf.body(("Delivery is phased so value reaches users early while foundations stay solid. Each phase ends with "
               "**user acceptance testing (UAT)** and training for the affected roles."))
-    pdf.mtable(["Phase", "Duration*", "Delivers", "Users unblocked"],
+    pdf.mtable(["Phase", "Timeframe", "Delivers", "Users unblocked"],
               [["Phase 1 — Foundation & Public Face",
-                "Weeks 1–6",
+                "Oct–Nov 2026",
                 "SSO + roles, Admin core (dashboard, users, roles), Guest/Public portal + CMS, contact/FAQ, certificate verification",
                 "Public, Admin, Media team"],
                ["Phase 2 — Engagement Core",
-                "Weeks 7–12",
+                "Dec 2026–Jan 2027",
                 "Student portal, Events lifecycle (propose→publish→register→QR check-in), Attendance, Notifications, Feedback",
                 "Students, Event teams"],
                ["Phase 3 — Governance & Work",
-                "Weeks 13–18",
+                "Feb–Mar 2027",
                 "Member + Directorate portals (tasks, duties, work plans, proposals, meetings), Faculty approvals, Certificates & badges, Grievance",
                 "Members, Directors, Faculty"],
                ["Phase 4 — Network & Intelligence",
-                "Weeks 19–24",
+                "Apr–May 2027",
                 "Alumni portal (network, mentorship, jobs), full analytics catalogue, scheduled digests, documents hub, performance scorecards",
                 "Alumni, Leadership"],
                ["Phase 5 — Extensions (optional)",
-                "Post-launch",
+                "Jun 2027 onward",
                 "Native mobile apps, LMS/payments integration, advanced BI, chatbot for FAQs",
                 "All"]],
-              widths=[34, 20, 80, 46])
-    pdf.body("*Durations are indicative for a focused team and assume content (logos, copy, photos) is supplied on time. "
-             "Each phase includes data migration of existing member/event records where available.", size=8.8)
+              widths=[34, 20, 80, 46], caption="Phased delivery plan")
+    pdf.body("Timeframes assume a focused team and on-time content supply (brand kit, copy, photos). Each phase includes migration of existing member and event records where available.", size=8.8)
+    pdf.sub2("Acceptance and exit criteria (each phase)")
+    pdf.bullets([
+        "**UAT scenarios** signed off by the Product Owner and at least two real users per affected role.",
+        "**Training walkthrough** delivered with Urdu and English guides; helpdesk active for 60 days.",
+        "Related **Appendix A rows demonstrated live** and marked accordingly.",
+        "**Go-live checklist**: backups verified, access matrix applied, content freeze, rollback note.",
+    ])
     pdf.sub("Priority order if scope must be trimmed")
     pdf.steps(["Never cut: identity/roles, event registration + attendance, approvals, certificate verification.",
                "Defer first: gamification leaderboards, advanced custom-report builder, SMS (keep email + in-app).",
                "Protect: grievance SLA tracking and audit logs — these carry institutional trust."])
 
-    # ---------------- 17. Estimates & governance
+    # ---------------- 18. Effort & governance
     pdf.section("Effort View & Governance")
     pdf.sub("Module count by portal")
     pdf.mtable(["Portal", "Modules", "Share"],
@@ -959,7 +1076,7 @@ def build(path):
                ["Alumni Portal", "10", "12%"],
                ["Guest / Public Portal", "14", "17%"],
                ["TOTAL", "81", "100%"]],
-              widths=[70, 30, 80])
+              widths=[70, 30, 80], caption="Module count by portal")
     pdf.sub("Suggested governance during build")
     pdf.bullets([
         "**Product owner (YPDC side):** one empowered decision-maker for scope, content and approvals.",
@@ -974,15 +1091,21 @@ def build(path):
                ["Low adoption / training gaps", "Role-based walkthroughs + Urdu video guides + helpdesk in first 60 days"],
                ["Event-day load spikes", "Queued bulk jobs; paginated scans; offline-tolerant QR check-in"],
                ["Data quality of legacy records", "Bulk-import templates with validation; verification step before go-live"]],
-              widths=[55, 125])
+              widths=[55, 125], caption="Risks and mitigations")
+    pdf.sub2("Change control")
+    pdf.bullets([
+        "The scope baseline is **Appendix A** (registers in Tables 3–11, consolidated in Table 20).",
+        "Change requests state the reason, affected Req. IDs, and cost/schedule impact; the **Product Owner** approves.",
+        "Approved changes update this report first (new version row in Document Control), then the build.",
+    ])
 
-    # ---------------- 18. Conclusion
+    # ---------------- 19. Conclusion
     pdf.section("Conclusion & Recommendations")
-    pdf.body(("The YPDC Integrated Portal System, as specified in this report, gives the organisation a **single source "
-              "of truth** for people, work and proof — from a guest's first visit to an alumnus's lifelong contribution. "
-              "The design balances **openness** (public showcase, verifiable certificates) with **discipline** (approvals, "
-              "attendance, audit trails), and balances **ambition** (81 modules) with **pragmatism** (phased delivery, "
-              "trim priorities)."))
+    pdf.body(("The YPDC Integrated Portal System, as specified in this report, gives the organisation a **system of record** "
+              "for people, work and proof — from a guest's first visit to an alumnus's contribution years later. "
+              "It combines **open** public information (showcase pages, verifiable certificates) with **controlled** "
+              "internal processes (approvals, attendance, audit logs), and pairs a **complete scope** (81 modules, "
+              "Appendix A) with **phased delivery** and explicit trim priorities."))
     pdf.sub("Recommended next steps")
     pdf.steps([
         "**Approve this report (v1.0)** as the frozen functional scope and authorise Phase-1 kickoff.",
@@ -998,17 +1121,18 @@ def build(path):
 
     # ---------------- Appendix A
     pdf.section("Appendix A — Master Module Checklist (81 modules)")
-    pdf.body("Use this table to track build & UAT status. Suggested status values: **Not started / In progress / In UAT / Live**.")
+    pdf.body("Use this table to track build and UAT status. Suggested values: **Not started / In progress / In UAT / Live**. This table is the scope baseline; changes follow the change-control process in Section 18.")
     master = []
     for p in PORTALS:
-        for m, pu, kf in p["modules"]:
-            master.append([f"P{p['n']}", p["name"].replace(" Portal", ""), m, "☐"])
-    pdf.mtable(["ID", "Portal", "Module", "Live?"], master, widths=[14, 42, 104, 20], size=8.2, lh=5.0)
+        for i, (m, pu, kf) in enumerate(p["modules"], 1):
+            master.append([f"{p['pre']}-{i:02d}", p["name"].replace(" Portal", ""), m, "☐"])
+    pdf.mtable(["Req. ID", "Portal", "Module", "Live?"], master, widths=[18, 42, 100, 20], size=8.2, lh=5.0,
+              caption="Master module checklist (baseline scope)")
 
     # ---------------- Appendix B
     pdf.section("Appendix B — Glossary")
     pdf.mtable(["Term", "Meaning in this report"],
-              [["YPDC", "Youth Peace & Development Council — the organisation this platform serves"],
+              [["YPDC", "Young Peace & Development Corps — the organisation this platform serves"],
                ["Directorate", "A specialised unit (e.g. Events, Media) with a director, team, objectives and work plan"],
                ["Member vs Student", "Student = enrolled participant; Member = inducted office-holder under a directorate"],
                ["Duty", "An assigned operational role in a specific event (usher, media, protocol, etc.)"],
@@ -1016,8 +1140,10 @@ def build(path):
                ["OKR", "Objectives & Key Results — quarterly goal-setting method for directorates"],
                ["CMS", "Content Management System — no-code editing of the public website"],
                ["QR check-in", "Attendance marking by scanning ticket/ID QR codes at venues"],
-               ["UAT", "User Acceptance Testing — formal sign-off by real users before go-live"]],
-              widths=[36, 144])
+               ["UAT", "User Acceptance Testing — formal sign-off by real users before go-live"],
+               ["RACI", "Responsibility chart: Responsible, Accountable, Consulted, Informed (see Table 9)"],
+               ["TBC", "To be confirmed — resolved during detailed design through change control"]],
+              widths=[36, 144], caption="Glossary")
 
     pdf.output(path)
     return path

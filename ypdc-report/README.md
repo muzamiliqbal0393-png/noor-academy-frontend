@@ -1,6 +1,6 @@
 # YPDC Integrated Portal System — Report
 
-Professional system report (PDF, 20 pages, A4) covering all **7 portals / 81 modules**:
+Professional system report (PDF, 23 pages, A4) covering all **7 portals / 81 modules**.
 
 | # | Portal | Modules |
 |---|--------|---------|
@@ -12,12 +12,12 @@ Professional system report (PDF, 20 pages, A4) covering all **7 portals / 81 mod
 | 6 | Alumni Portal | 10 |
 | 7 | Guest / Public Portal | 14 |
 
-**Contents:** cover page, auto-numbered Table of Contents, Executive Summary,
+**Contents:** cover page, Document Control (version history, approvals, distribution), auto-numbered Table of Contents, Executive Summary,
 system overview & architecture, per-portal module specifications + workflows +
 KPIs, cross-cutting systems (roles, events lifecycle, attendance, certificates,
 notifications, grievance), data model, approval-chain workflows, analytics
 framework, non-functional requirements, phased roadmap, effort/governance,
-conclusion with sign-off block, master 81-module checklist (Appendix A),
+assumptions/dependencies, calendar-anchored roadmap with exit criteria, change control, conclusion with sign-off block, master 81-module checklist with Req. IDs STU-01…PUB-14 (Appendix A),
 glossary (Appendix B).
 
 ## Regenerate the PDF
