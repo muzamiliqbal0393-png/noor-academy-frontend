@@ -7,7 +7,7 @@ Pure **HTML + CSS + JavaScript** frontend, **Node.js + Express** backend, **Post
 ypdc-website/
 ├── index.html, about-ypdc.html, events.html ...   → Public website (14 pages)
 ├── login.html, register.html                      → Auth
-├── student/  member/  directorate/  faculty/  admin/  alumni/   → 6 Portals (har feature ka apna page)
+├── student/ (Volunteer)  member/ (General Member)  directorate/  faculty/  admin/  alumni/   → 6 Portals (har feature ka apna page)
 ├── css/   style.css (global), portal.css (dashboard layout)
 ├── js/    api.js (fetch wrapper), auth.js (login/role guard), main.js (UI helpers), data.js (demo data)
 ├── backend/  server.js (Express API), schema.sql (PostgreSQL), package.json
@@ -27,8 +27,8 @@ Password sab ka: `123456`
 
 | Portal | Email |
 |---|---|
-| Student | student@ypdc.org |
-| Member | member@ypdc.org |
+| Volunteer | volunteer@ypdc.org |
+| General Member | member@ypdc.org |
 | Directorate | director@ypdc.org |
 | Faculty | faculty@ypdc.org |
 | Admin | admin@ypdc.org |

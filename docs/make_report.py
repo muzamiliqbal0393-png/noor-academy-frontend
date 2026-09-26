@@ -116,7 +116,7 @@ def cover_page(canvas, doc):
     canvas.setFont("Helvetica-Bold", 12); canvas.setFillColor(GOLD)
     canvas.drawString(1.5 * cm, top - 2.9 * cm, "Project Report: Features  ·  Frontend  ·  Backend  ·  Architecture")
     canvas.setFillColor(colors.HexColor("#B9D3E0")); canvas.setFont("Helvetica", 8.5)
-    canvas.drawString(1.5 * cm, top - 3.6 * cm, "Portals: Student · Member · Directorate · Faculty · Admin · Alumni · Public   |   Version 1.0   |   September 2026")
+    canvas.drawString(1.5 * cm, top - 3.6 * cm, "Portals: Volunteer · General Member · Directorate · Faculty · Admin · Alumni · Public   |   Version 1.0   |   September 2026")
     canvas.restoreState()
     return
     canvas.setFillColor(PRIMARY); canvas.rect(0, 0, W, H, stroke=0, fill=1)
@@ -136,7 +136,7 @@ def cover_page(canvas, doc):
     canvas.setFillColor(WHITE); canvas.setFont("Helvetica", 10.5)
     y = H * 0.36
     for line in ["Document Type : System Design & Feature Specification",
-                 "Portals       : Student · Member · Directorate · Faculty · Admin · Alumni · Public",
+                 "Portals       : Volunteer · General Member · Directorate · Faculty · Admin · Alumni · Public",
                  "Version       : 1.0", "Date          : September 2026"]:
         canvas.drawString(2 * cm, y, line); y -= 0.65 * cm
     canvas.setFont("Helvetica-Oblique", 9); canvas.setFillColor(colors.HexColor("#B9D3E0"))
@@ -165,17 +165,17 @@ S.append(Paragraph("YPDC website ek complete web platform hai jis mein ek public
 
 ov = [["Item", "Detail"],
       ["Project", "YPDC Official Website + Multi-Portal Management System"],
-      ["Users / Roles", "Student, Member, Directorate (Director / Asst. Director), Faculty, Admin, Alumni, Guest (Public)"],
+      ["Users / Roles", "Volunteer, General Member, Directorate (Director / Asst. Director), Faculty, Admin, Alumni, Guest (Public)"],
       ["Core Modules", "Profiles, Membership, Events, Attendance, Certificates, Tasks, Reports, Notifications, Feedback"],
       ["Access Model", "Single login page -> role detect -> related portal dashboard open (Guest ko login ki zaroorat nahi)"]]
 S.append(grid(ov, [3.5 * cm, W - 3 * cm - 3.5 * cm]))
 S.append(Spacer(1, 10))
 
 S.extend(section("2. Portals & Features"))
-S.append(portal_card("1. Student Portal", "Students ke liye — events, volunteering, attendance aur certificates",
+S.append(portal_card("1. Volunteer Portal", "Volunteers ke liye — events, volunteering, attendance aur certificates",
                      ["Profile", "Membership", "Events", "Event Registration", "Volunteer Opportunities",
                       "Attendance", "Certificates", "Achievements", "Notifications", "Feedback"], ACCENT))
-S.append(portal_card("2. Member Portal", "Registered members — directorate work, tasks aur performance",
+S.append(portal_card("2. General Member Portal", "General members — directorate work, tasks aur performance",
                      ["Profile & Member ID", "Directorate", "Responsibilities", "Tasks", "Events / Duties",
                       "Attendance", "Certificates", "Performance", "Reports", "Notifications"],
                      colors.HexColor("#2E7D6B")))
@@ -189,7 +189,7 @@ S.append(PageBreak())
 S.append(Paragraph("2. Portals & Features (continued)", h1))
 S.append(portal_card("4. Faculty Portal", "Faculty advisors — approvals, monitoring aur reports",
                      ["Faculty Profile", "Department / Designation", "YPDC Role", "Events",
-                      "Student / Member Activities", "Approvals", "Reports", "Feedback", "Notifications"],
+                      "Volunteer / Member Activities", "Approvals", "Reports", "Feedback", "Notifications"],
                      colors.HexColor("#B5651D")))
 S.append(portal_card("5. Admin Portal", "Full control — poore system ka management",
                      ["Dashboard", "User Management", "Member Management", "Directorate Management",
@@ -207,7 +207,7 @@ S.append(portal_card("7. Guest / Public Portal (Website)", "Bina login — publi
 
 S.extend(section("Role Access Matrix"))
 Y, N = "Yes", "-"
-mat = [["Module", "Student", "Member", "Directorate", "Faculty", "Admin", "Alumni", "Guest"],
+mat = [["Module", "Volunteer", "Gen. Member", "Directorate", "Faculty", "Admin", "Alumni", "Guest"],
        ["Profile", Y, Y, Y, Y, Y, Y, N],
        ["Events (view / register)", Y, Y, Y, Y, Y, Y, "View"],
        ["Tasks / Work Plan", N, Y, Y, N, Y, N, N],
@@ -257,7 +257,7 @@ S.append(Spacer(1, 8))
 S.extend(section("3.3 Page / Screen Structure"))
 pages = [["Area", "Main Screens"],
          ["Public Website", "Home, About, Vision & Mission, Leadership, Directorates, Projects, Events, News, Achievements, Gallery, Publications, Membership Form, Volunteer Registration, Contact, FAQs"],
-         ["Auth", "Login, Register (Student / Member / Alumni), Forgot Password, Email Verification"],
+         ["Auth", "Login, Register (Volunteer / General Member / Alumni), Forgot Password, Email Verification"],
          ["Portal Layout", "Dashboard (cards + quick stats), Sidebar menu (role-wise features), Profile, Notifications bell, Settings"],
          ["Reusable JS Modules", "table.js (search/filter/export), modal.js, form-validate.js, api.js (fetch wrapper), auth.js (token + role guard), notify.js (toasts)"]]
 S.append(grid(pages, [3.2 * cm, cw - 3.2 * cm]))
@@ -297,7 +297,7 @@ S.extend(section("4.2 Database — Main Tables"))
 db = [["Table", "Key Fields", "Related To"],
       ["users", "id, name, email, password_hash, role, status", "roles, profiles"],
       ["roles / permissions", "role_name, permission_key", "users (RBAC)"],
-      ["students / members / alumni / faculty", "profile info, member_id, department, designation, skills", "users, directorates"],
+      ["volunteers / members / alumni / faculty", "profile info, member_id, department, designation, skills", "users, directorates"],
       ["directorates", "name, director_id, asst_director_id, objectives, work_plan", "members, tasks, events"],
       ["tasks", "title, assigned_to, directorate_id, deadline, status, performance_score", "members, directorates"],
       ["events", "title, type, date, venue, directorate_id, status (proposed/approved)", "registrations, attendance"],
@@ -329,7 +329,7 @@ S.append(Paragraph("5. System Architecture, Workflow & Development Plan", h1))
 S.append(Spacer(1, 4))
 
 S.extend(section("5.1 Architecture (How it Works)"))
-arch = [[Paragraph("<b>USER (Browser / Mobile)</b><br/>Student · Member · Faculty · Admin · Alumni · Guest", center),
+arch = [[Paragraph("<b>USER (Browser / Mobile)</b><br/>Volunteer · General Member · Faculty · Admin · Alumni · Guest", center),
          Paragraph("&#8594;", center),
          Paragraph("<b>FRONTEND</b><br/>HTML + CSS + JavaScript<br/>(Netlify / cPanel hosting)", center),
          Paragraph("&#8594;", center),
@@ -352,7 +352,7 @@ S.append(Spacer(1, 8))
 S.extend(section("5.2 Key Workflows"))
 wf = [["Workflow", "Steps"],
       ["Membership Application", "Guest form submit -> Admin review -> Approve -> User account + Member ID create -> Email + Member Portal access"],
-      ["Event Lifecycle", "Directorate proposes event -> Faculty approval -> Admin final approval -> Published on website -> Students register -> Attendance (QR) -> Certificates auto-issued -> Activity report"],
+      ["Event Lifecycle", "Directorate proposes event -> Faculty approval -> Admin final approval -> Published on website -> Volunteers register -> Attendance (QR) -> Certificates auto-issued -> Activity report"],
       ["Task Management", "Director assigns task -> Member updates status -> Director reviews -> Performance score -> Reflect in Member Performance & Directorate Report"],
       ["Certificate Verification", "Certificate PDF with unique number + QR -> anyone scans -> /verify/:no -> authenticity confirmed"],
       ["Notifications", "System events (approval, task, event reminder) -> in-app notification + email"]]
@@ -363,7 +363,7 @@ S.extend(section("5.3 Development Phases & Timeline"))
 ph = [["Phase", "Work", "Duration"],
       ["Phase 1", "Requirements finalize, UI/UX design (Figma), database design", "2 weeks"],
       ["Phase 2", "Public website (HTML/CSS/JS) + Auth (login/register) + Admin Portal core (users, roles, CMS)", "3 weeks"],
-      ["Phase 3", "Student, Member & Directorate Portals (events, tasks, attendance, certificates)", "4 weeks"],
+      ["Phase 3", "Volunteer, General Member & Directorate Portals (events, tasks, attendance, certificates)", "4 weeks"],
       ["Phase 4", "Faculty & Alumni Portals, reports & analytics, notifications", "3 weeks"],
       ["Phase 5", "Testing, security review, deployment, training & documentation", "2 weeks"],
       ["Total", "", "~14 weeks"]]
@@ -380,7 +380,7 @@ sec = [["Area", "Measures"],
        ["Quality", "Responsive testing, API tests (Jest), Swagger docs, Git version control, staging + production environments"]]
 S.append(grid(sec, [3 * cm, cw - 3 * cm]))
 S.append(Spacer(1, 10))
-S.append(Paragraph("<b>Conclusion:</b> Ye system YPDC ke tamam stakeholders — students, members, directorates, faculty, admin aur alumni — "
+S.append(Paragraph("<b>Conclusion:</b> Ye system YPDC ke tamam stakeholders — volunteers, general members, directorates, faculty, admin aur alumni — "
                    "ko ek platform par lata hai. HTML/CSS/JavaScript frontend, Node.js backend aur PostgreSQL database ke sath ye scalable, secure "
                    "aur asaan-maintain website banegi.", body))
 

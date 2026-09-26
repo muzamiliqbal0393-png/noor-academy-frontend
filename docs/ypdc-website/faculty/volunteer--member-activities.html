@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feedback — Faculty Portal | YPDC</title>
+<title>Volunteer / Member Activities — Faculty Portal | YPDC</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="../css/style.css">
@@ -18,10 +18,10 @@
  <div class="logout"><a href="#" onclick="logout();return false"><i class="fa fa-sign-out-alt"></i> Logout</a></div>
 </aside>
 <div class="main">
- <header class="topbar"><div style="display:flex;align-items:center;gap:14px"><button class="menu-btn"><i class="fa fa-bars"></i></button><h2>Feedback</h2></div>
+ <header class="topbar"><div style="display:flex;align-items:center;gap:14px"><button class="menu-btn"><i class="fa fa-bars"></i></button><h2>Volunteer / Member Activities</h2></div>
   <div class="right"><a href="notifications.html" class="bell"><i class="fa fa-bell"></i><span>3</span></a><span data-user-name style="font-weight:600;color:var(--primary)"></span><div class="avatar" data-user-initial></div></div></header>
- <div class="content"><div class="panel"><div class="panel-head"><h3>Feedback</h3></div><div class="panel-body"><div class="table-wrap"><table><thead><tr><th>From</th><th>Type</th><th>Message</th><th>Date</th><th>Status</th></tr></thead><tbody><tr><td>Ali Raza</td><td>Feedback</td><td>Great summit, need more seats</td><td>2026-09-20</td><td><span class="badge badge-warning">Open</span></td></tr><tr><td>Sara Khan</td><td>Complaint</td><td>Attendance not marked</td><td>2026-09-22</td><td><span class="badge badge-success">Resolved</span></td></tr></tbody></table></div></div></div></div>
+ <div class="content"><div class="panel"><div class="panel-head"><h3>Volunteer / Member Activities</h3></div><div class="panel-body"><div class="toolbar"><input id="t_q" placeholder="Search..."><button class="btn btn-sm btn-primary" onclick="exportCSV('t')"><i class="fa fa-download"></i> Export</button></div><div class="table-wrap"><table id="t"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div></div></div></div>
 </div></div>
 <script src="../js/api.js"></script><script src="../js/auth.js"></script><script src="../js/data.js"></script><script src="../js/main.js"></script>
-<script>requireRole('faculty');</script>
+<script>requireRole('faculty');renderRows('rows', DEMO.users, ['name','email','role','status']);tableSearch('t_q','t');</script>
 </body></html>

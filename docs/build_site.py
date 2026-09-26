@@ -16,10 +16,10 @@ PUBLIC = ["Home", "About YPDC", "Vision & Mission", "Leadership", "Directorates"
           "Contact Us", "FAQs"]
 
 PORTALS = {
-    "student": ("Student Portal", "fa-user-graduate",
+    "student": ("Volunteer Portal", "fa-hands-helping",
                 ["Profile", "Membership", "Events", "Event Registration", "Volunteer Opportunities", "Attendance",
                  "Certificates", "Achievements", "Notifications", "Feedback"]),
-    "member": ("Member Portal", "fa-id-badge",
+    "member": ("General Member Portal", "fa-id-badge",
                ["Profile & Member ID", "Directorate", "Responsibilities", "Tasks", "Events / Duties", "Attendance",
                 "Certificates", "Performance", "Reports", "Notifications"]),
     "directorate": ("Directorate Portal", "fa-sitemap",
@@ -27,7 +27,7 @@ PORTALS = {
                      "Tasks", "Events & Activities", "Event Proposals", "Attendance", "Activity Reports",
                      "Achievements", "Documents", "Performance"]),
     "faculty": ("Faculty Portal", "fa-chalkboard-teacher",
-                ["Faculty Profile", "Department / Designation", "YPDC Role", "Events", "Student / Member Activities",
+                ["Faculty Profile", "Department / Designation", "YPDC Role", "Events", "Volunteer / Member Activities",
                  "Approvals", "Reports", "Feedback", "Notifications"]),
     "admin": ("Admin Portal", "fa-user-shield",
               ["Dashboard", "User Management", "Member Management", "Directorate Management", "Faculty Management",
@@ -206,7 +206,7 @@ const ROLE_HOME = {
 };
 // Demo accounts (backend ke bina test ke liye)
 const DEMO_USERS = {
-  'student@ypdc.org': { role: 'student', name: 'Ali Raza' },
+  'volunteer@ypdc.org': { role: 'student', name: 'Ali Raza' },
   'member@ypdc.org': { role: 'member', name: 'Sara Khan' },
   'director@ypdc.org': { role: 'directorate', name: 'Hamza Ahmed' },
   'faculty@ypdc.org': { role: 'faculty', name: 'Dr. Ayesha Malik' },
@@ -350,8 +350,8 @@ const DEMO = {
     { msg: 'Task deadline tomorrow: Prepare event budget', time: '2 days ago', type: 'warning' },
   ],
   users: [
-    { name: 'Ali Raza', email: 'student@ypdc.org', role: 'Student', status: 'Active' },
-    { name: 'Sara Khan', email: 'member@ypdc.org', role: 'Member', status: 'Active' },
+    { name: 'Ali Raza', email: 'volunteer@ypdc.org', role: 'Volunteer', status: 'Active' },
+    { name: 'Sara Khan', email: 'member@ypdc.org', role: 'General Member', status: 'Active' },
     { name: 'Hamza Ahmed', email: 'director@ypdc.org', role: 'Director', status: 'Active' },
     { name: 'Dr. Ayesha Malik', email: 'faculty@ypdc.org', role: 'Faculty', status: 'Active' },
     { name: 'Usman Tariq', email: 'alumni@ypdc.org', role: 'Alumni', status: 'Inactive' },
@@ -449,8 +449,8 @@ public_bodies = {
 </div></section>
 <section><div class="container">
  <div class="section-title"><h2>Our Portals</h2><p>Login to access your dashboard</p></div>
- {cards([("fa-user-graduate","Student Portal","Events, registration, attendance & certificates."),
-         ("fa-id-badge","Member Portal","Tasks, duties, performance & reports."),
+ {cards([("fa-hands-helping","Volunteer Portal","Events, registration, attendance & certificates."),
+         ("fa-id-badge","General Member Portal","Tasks, duties, performance & reports."),
          ("fa-sitemap","Directorate Portal","Team, work plan, proposals & activity reports."),
          ("fa-chalkboard-teacher","Faculty Portal","Approvals, monitoring and reports."),
          ("fa-user-shield","Admin Portal","Full system management & analytics."),
@@ -503,7 +503,7 @@ public_bodies = {
 <tr><td>Community Service Newsletter</td><td>Newsletter</td><td>2026</td><td><a href="#" class="btn btn-sm btn-primary"><i class="fa fa-download"></i> PDF</a></td></tr>
 </tbody></table></div></div></section>""",
 "Membership": """<section><div class="container grid grid-2">
- <div><h2 style="color:var(--primary)">Join YPDC</h2><p style="color:var(--muted);margin:12px 0">Membership is open to all enrolled students. Members get access to trainings, leadership roles, certificates and a strong professional network.</p>
+ <div><h2 style="color:var(--primary)">Join YPDC</h2><p style="color:var(--muted);margin:12px 0">Membership is open to all enrolled students. General Members get access to trainings, leadership roles, certificates and a strong professional network.</p>
  <ul style="margin-left:18px;color:var(--muted);line-height:2"><li>Fill the application form</li><li>Admin review & interview</li><li>Approval & Member ID issued</li><li>Portal access via email</li></ul></div>
  <div class="card"><h3>Membership Application</h3><form class="form" data-demo="Application submitted! Aapko email par update milega." style="margin-top:12px">
   <div class="form-row"><div><label>Full Name</label><input required></div><div><label>Email</label><input type="email" required></div></div>
@@ -550,7 +550,7 @@ LOGIN = HEAD.format(title="Login", base="", extra_css="") + """
   <button class="btn btn-primary" style="justify-content:center">Login <i class="fa fa-arrow-right"></i></button>
  </form>
  <p style="text-align:center;margin-top:14px;font-size:.9rem">New here? <a href="register.html">Register</a> · <a href="#" onclick="toast('Reset link email par bhej diya gaya','success');return false">Forgot password?</a></p>
- <div class="demo"><b>Demo accounts</b> (password: <code>123456</code>)<br>student@ypdc.org · member@ypdc.org · director@ypdc.org<br>faculty@ypdc.org · admin@ypdc.org · alumni@ypdc.org</div>
+ <div class="demo"><b>Demo accounts</b> (password: <code>123456</code>)<br>volunteer@ypdc.org · member@ypdc.org · director@ypdc.org<br>faculty@ypdc.org · admin@ypdc.org · alumni@ypdc.org</div>
 </div></div>
 <script src="js/api.js"></script><script src="js/auth.js"></script><script src="js/main.js"></script>
 <script>
@@ -565,10 +565,10 @@ open(f"{ROOT}/login.html", "w").write(LOGIN)
 
 REGISTER = HEAD.format(title="Register", base="", extra_css="") + """
 <div class="auth-wrap"><div class="auth-card" style="max-width:560px">
- <h2>Create Account</h2><p class="sub">Student / Alumni registration</p>
+ <h2>Create Account</h2><p class="sub">Volunteer / Alumni registration</p>
  <form class="form" data-demo="Account request submit ho gaya. Admin approval ke baad email aayega.">
   <div class="form-row"><div><label>Full Name</label><input required></div><div><label>Email</label><input type="email" required></div></div>
-  <div class="form-row"><div><label>Register as</label><select><option>Student</option><option>Alumni</option></select></div><div><label>Department</label><input required></div></div>
+  <div class="form-row"><div><label>Register as</label><select><option>Volunteer</option><option>General Member</option><option>Alumni</option></select></div><div><label>Department</label><input required></div></div>
   <div class="form-row"><div><label>Password</label><input type="password" required></div><div><label>Confirm Password</label><input type="password" required></div></div>
   <button class="btn btn-primary" style="justify-content:center">Register</button>
  </form>
@@ -609,8 +609,8 @@ def table(tid, heads, tbody_id):
     return f'<div class="toolbar"><input id="{tid}_q" placeholder="Search..."><button class="btn btn-sm btn-primary" onclick="exportCSV(\'{tid}\')"><i class="fa fa-download"></i> Export</button></div><div class="table-wrap"><table id="{tid}"><thead><tr>' + "".join(f"<th>{h}</th>" for h in heads) + f'</tr></thead><tbody id="{tbody_id}"></tbody></table></div>'
 
 def profile_body(role):
-    fields = {"student": [("Roll No", "BSCS-2023-045"), ("Department", "Computer Science"), ("Semester", "5th"), ("Membership", "Active Member")],
-              "member": [("Member ID", "YPDC-M-0231"), ("Directorate", "Training & Development"), ("Joined", "Sep 2024"), ("Status", "Active")],
+    fields = {"student": [("Volunteer ID", "YPDC-V-0145"), ("Department", "Computer Science"), ("Semester", "5th"), ("Status", "Active Volunteer")],
+              "member": [("Member ID", "YPDC-GM-0231"), ("Directorate", "Training & Development"), ("Joined", "Sep 2024"), ("Status", "Active")],
               "directorate": [("Directorate", "Training & Development"), ("Role", "Director"), ("Team Size", "18"), ("Term", "2026")],
               "faculty": [("Designation", "Assistant Professor"), ("Department", "Management Sciences"), ("YPDC Role", "Faculty Coordinator"), ("Since", "2022")],
               "admin": [("Role", "Super Admin"), ("Access", "Full"), ("Last Login", "Today"), ("2FA", "Enabled")],
@@ -668,7 +668,7 @@ def generic_feature(role, f):
     if "report" in n or "analytics" in n:
         act = '<button class="btn btn-sm btn-primary" onclick="toast(\'Report PDF export (demo)\',\'success\')"><i class="fa fa-file-pdf"></i> Export PDF</button>'
         return stat_cards([("fa-calendar", "42", "Events"), ("fa-users", "1200", "Members"), ("fa-certificate", "860", "Certificates"), ("fa-clipboard-check", "88%", "Avg Attendance")]) + '<div class="grid grid-2">' + panel("Events per Directorate", '<div class="chart-box"><canvas id="c1"></canvas></div>', act) + panel("Monthly Participation", '<div class="chart-box"><canvas id="c2"></canvas></div>') + "</div>", \
-               "new Chart(document.getElementById('c1'),{type:'bar',data:{labels:DEMO.directorates.map(d=>d.name.split(' ')[0]),datasets:[{label:'Events',data:[9,12,7,6,5,3],backgroundColor:'#0B3D5C'}]},options:{maintainAspectRatio:false}});new Chart(document.getElementById('c2'),{type:'doughnut',data:{labels:['Students','Members','Alumni','Faculty'],datasets:[{data:[55,30,10,5],backgroundColor:['#1B9AAA','#0B3D5C','#E8B04B','#2E7D6B']}]},options:{maintainAspectRatio:false}});"
+               "new Chart(document.getElementById('c1'),{type:'bar',data:{labels:DEMO.directorates.map(d=>d.name.split(' ')[0]),datasets:[{label:'Events',data:[9,12,7,6,5,3],backgroundColor:'#0B3D5C'}]},options:{maintainAspectRatio:false}});new Chart(document.getElementById('c2'),{type:'doughnut',data:{labels:['Volunteers','Gen. Members','Alumni','Faculty'],datasets:[{data:[55,30,10,5],backgroundColor:['#1B9AAA','#0B3D5C','#E8B04B','#2E7D6B']}]},options:{maintainAspectRatio:false}});"
     if "document" in n or "publication" in n:
         rows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td><td><button class='btn btn-sm btn-primary'><i class='fa fa-download'></i></button></td></tr>" for a, b, c in [("Work Plan 2026.pdf", "Plan", "2026-01-10"), ("Summit Budget.xlsx", "Finance", "2026-09-12"), ("Activity Report Aug.pdf", "Report", "2026-09-01"), ("Meeting Minutes.docx", "Minutes", "2026-09-15")])
         return panel("Documents", f'<div class="table-wrap"><table><thead><tr><th>File</th><th>Category</th><th>Uploaded</th><th></th></tr></thead><tbody>{rows}</tbody></table></div>', '<button class="btn btn-sm btn-primary" onclick="toast(\'Upload dialog (demo)\')"><i class="fa fa-upload"></i> Upload</button>'), ""
@@ -709,9 +709,9 @@ def generic_feature(role, f):
         <div><label>Title</label><input required></div><div><label>Content</label><textarea rows="6" required></textarea></div><div><label>Image</label><input type="file"></div><button class="btn btn-primary">Publish</button></form>"""
         return panel("Website Content Manager (CMS)", form), ""
     if "permission" in n:
-        roles = ["Student", "Member", "Directorate", "Faculty", "Admin", "Alumni"]
+        roles = ["Volunteer", "Gen. Member", "Directorate", "Faculty", "Admin", "Alumni"]
         perms = ["View Events", "Register Events", "Manage Tasks", "Mark Attendance", "Issue Certificates", "Approve Proposals", "Manage Users", "Edit Website"]
-        rows = "".join("<tr><td><b>" + p + "</b></td>" + "".join(f"<td><input type='checkbox' style='width:auto' {'checked' if (r=='Admin' or (i<2) or (r in ('Directorate','Member') and i==2) or (r=='Faculty' and i==5) or (r=='Directorate' and i==3)) else ''}></td>" for r in roles) + "</tr>" for i, p in enumerate(perms))
+        rows = "".join("<tr><td><b>" + p + "</b></td>" + "".join(f"<td><input type='checkbox' style='width:auto' {'checked' if (r=='Admin' or (i<2) or (r in ('Directorate','Gen. Member') and i==2) or (r=='Faculty' and i==5) or (r=='Directorate' and i==3)) else ''}></td>" for r in roles) + "</tr>" for i, p in enumerate(perms))
         return panel("Roles & Permissions", f'<div class="table-wrap"><table><thead><tr><th>Permission</th>' + "".join(f"<th>{r}</th>" for r in roles) + f'</tr></thead><tbody>{rows}</tbody></table></div><br><button class="btn btn-primary" onclick="toast(\'Permissions save ho gayi\',\'success\')">Save Changes</button>'), ""
     if "membership" in n:
         return stat_cards([("fa-id-card", "Active", "Status"), ("fa-calendar", "Sep 2024", "Member Since"), ("fa-sitemap", "T&D", "Directorate")]) + panel("Membership Details", "<p>Membership ID: <b>YPDC-M-0231</b><br>Type: Regular Member<br>Valid till: Dec 2026</p><br><button class='btn btn-primary' onclick=\"toast('Membership card download (demo)','success')\"><i class='fa fa-download'></i> Download Membership Card</button>"), ""
@@ -776,7 +776,7 @@ const SECRET = process.env.JWT_SECRET || 'dev_secret';
 
 // ---- Demo in-memory data (PostgreSQL se replace karein: see schema.sql) ----
 const users = [
-  { id: 1, name: 'Ali Raza', email: 'student@ypdc.org', role: 'student', password: bcrypt.hashSync('123456', 8) },
+  { id: 1, name: 'Ali Raza', email: 'volunteer@ypdc.org', role: 'student', password: bcrypt.hashSync('123456', 8) },
   { id: 2, name: 'Sara Khan', email: 'member@ypdc.org', role: 'member', password: bcrypt.hashSync('123456', 8) },
   { id: 3, name: 'Hamza Ahmed', email: 'director@ypdc.org', role: 'directorate', password: bcrypt.hashSync('123456', 8) },
   { id: 4, name: 'Dr. Ayesha Malik', email: 'faculty@ypdc.org', role: 'faculty', password: bcrypt.hashSync('123456', 8) },
@@ -928,7 +928,7 @@ Pure **HTML + CSS + JavaScript** frontend, **Node.js + Express** backend, **Post
 ypdc-website/
 ├── index.html, about-ypdc.html, events.html ...   → Public website (14 pages)
 ├── login.html, register.html                      → Auth
-├── student/  member/  directorate/  faculty/  admin/  alumni/   → 6 Portals (har feature ka apna page)
+├── student/ (Volunteer)  member/ (General Member)  directorate/  faculty/  admin/  alumni/   → 6 Portals (har feature ka apna page)
 ├── css/   style.css (global), portal.css (dashboard layout)
 ├── js/    api.js (fetch wrapper), auth.js (login/role guard), main.js (UI helpers), data.js (demo data)
 ├── backend/  server.js (Express API), schema.sql (PostgreSQL), package.json
@@ -948,8 +948,8 @@ Password sab ka: `123456`
 
 | Portal | Email |
 |---|---|
-| Student | student@ypdc.org |
-| Member | member@ypdc.org |
+| Volunteer | volunteer@ypdc.org |
+| General Member | member@ypdc.org |
 | Directorate | director@ypdc.org |
 | Faculty | faculty@ypdc.org |
 | Admin | admin@ypdc.org |

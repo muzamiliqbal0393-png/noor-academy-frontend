@@ -5,7 +5,7 @@ const ROLE_HOME = {
 };
 // Demo accounts (backend ke bina test ke liye)
 const DEMO_USERS = {
-  'student@ypdc.org': { role: 'student', name: 'Ali Raza' },
+  'volunteer@ypdc.org': { role: 'student', name: 'Ali Raza' },
   'member@ypdc.org': { role: 'member', name: 'Sara Khan' },
   'director@ypdc.org': { role: 'directorate', name: 'Hamza Ahmed' },
   'faculty@ypdc.org': { role: 'faculty', name: 'Dr. Ayesha Malik' },

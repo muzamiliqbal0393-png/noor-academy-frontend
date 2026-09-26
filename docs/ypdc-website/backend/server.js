@@ -12,7 +12,7 @@ const SECRET = process.env.JWT_SECRET || 'dev_secret';
 
 // ---- Demo in-memory data (PostgreSQL se replace karein: see schema.sql) ----
 const users = [
-  { id: 1, name: 'Ali Raza', email: 'student@ypdc.org', role: 'student', password: bcrypt.hashSync('123456', 8) },
+  { id: 1, name: 'Ali Raza', email: 'volunteer@ypdc.org', role: 'student', password: bcrypt.hashSync('123456', 8) },
   { id: 2, name: 'Sara Khan', email: 'member@ypdc.org', role: 'member', password: bcrypt.hashSync('123456', 8) },
   { id: 3, name: 'Hamza Ahmed', email: 'director@ypdc.org', role: 'directorate', password: bcrypt.hashSync('123456', 8) },
   { id: 4, name: 'Dr. Ayesha Malik', email: 'faculty@ypdc.org', role: 'faculty', password: bcrypt.hashSync('123456', 8) },

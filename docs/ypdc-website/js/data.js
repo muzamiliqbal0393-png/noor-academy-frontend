@@ -37,8 +37,8 @@ const DEMO = {
     { msg: 'Task deadline tomorrow: Prepare event budget', time: '2 days ago', type: 'warning' },
   ],
   users: [
-    { name: 'Ali Raza', email: 'student@ypdc.org', role: 'Student', status: 'Active' },
-    { name: 'Sara Khan', email: 'member@ypdc.org', role: 'Member', status: 'Active' },
+    { name: 'Ali Raza', email: 'volunteer@ypdc.org', role: 'Volunteer', status: 'Active' },
+    { name: 'Sara Khan', email: 'member@ypdc.org', role: 'General Member', status: 'Active' },
     { name: 'Hamza Ahmed', email: 'director@ypdc.org', role: 'Director', status: 'Active' },
     { name: 'Dr. Ayesha Malik', email: 'faculty@ypdc.org', role: 'Faculty', status: 'Active' },
     { name: 'Usman Tariq', email: 'alumni@ypdc.org', role: 'Alumni', status: 'Inactive' },
