@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile & Member ID — Member Portal | YPDC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/portal.css">
+</head>
+<body>
+<div class="portal">
+<aside class="sidebar">
+ <a class="logo" href="../index.html"><span>Y</span>YPDC</a>
+ <div class="role"><i class="fa fa-id-badge"></i> Member Portal</div>
+ <a href="dashboard.html"><i class="fa fa-gauge"></i> Dashboard</a><a href="profile-and-member-id.html"><i class="fa fa-user"></i> Profile & Member ID</a><a href="directorate.html"><i class="fa fa-sitemap"></i> Directorate</a><a href="responsibilities.html"><i class="fa fa-list-check"></i> Responsibilities</a><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a><a href="events--duties.html"><i class="fa fa-calendar"></i> Events / Duties</a><a href="attendance.html"><i class="fa fa-clipboard-check"></i> Attendance</a><a href="certificates.html"><i class="fa fa-certificate"></i> Certificates</a><a href="performance.html"><i class="fa fa-chart-line"></i> Performance</a><a href="reports.html"><i class="fa fa-file-alt"></i> Reports</a><a href="notifications.html"><i class="fa fa-bell"></i> Notifications</a>
+ <div class="logout"><a href="#" onclick="logout();return false"><i class="fa fa-sign-out-alt"></i> Logout</a></div>
+</aside>
+<div class="main">
+ <header class="topbar"><div style="display:flex;align-items:center;gap:14px"><button class="menu-btn"><i class="fa fa-bars"></i></button><h2>Profile & Member ID</h2></div>
+  <div class="right"><a href="notifications.html" class="bell"><i class="fa fa-bell"></i><span>3</span></a><span data-user-name style="font-weight:600;color:var(--primary)"></span><div class="avatar" data-user-initial></div></div></header>
+ <div class="content"><div class="profile-head"><div class="avatar" data-user-initial></div><div><h2 data-user-name style="color:var(--primary)"></h2><p style="color:var(--muted)">Member</p></div></div><div class="grid grid-2"><div class="panel"><div class="panel-head"><h3>Information</h3></div><div class="panel-body"><table><tr><td><b>Member ID</b></td><td>YPDC-M-0231</td></tr><tr><td><b>Directorate</b></td><td>Training & Development</td></tr><tr><td><b>Joined</b></td><td>Sep 2024</td></tr><tr><td><b>Status</b></td><td>Active</td></tr></table></div></div><div class="panel"><div class="panel-head"><h3>Edit Profile</h3></div><div class="panel-body"><form class="form" data-demo="Profile update ho gayi!"><div class="form-row"><div><label>Full Name</label><input data-user-name-input required></div><div><label>Email</label><input type="email" required></div></div>
+    <div class="form-row"><div><label>Phone</label><input required></div><div><label>City</label><input></div></div><div><label>Bio</label><textarea rows="3"></textarea></div><button class="btn btn-primary">Save Changes</button></form></div></div></div></div>
+</div></div>
+<script src="../js/api.js"></script><script src="../js/auth.js"></script><script src="../js/data.js"></script><script src="../js/main.js"></script>
+<script>requireRole('member');</script>
+</body></html>

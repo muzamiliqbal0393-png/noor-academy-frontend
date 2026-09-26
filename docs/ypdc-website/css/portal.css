@@ -1,0 +1,33 @@
+/* ====== Portal Layout ====== */
+.portal{display:flex;min-height:100vh}
+.sidebar{width:260px;background:var(--primary);color:#fff;padding:20px 14px;position:fixed;top:0;bottom:0;overflow-y:auto;transition:.3s;z-index:50}
+.sidebar .logo{margin-bottom:26px;padding:0 8px}
+.sidebar .role{font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--gold);padding:0 8px;margin-bottom:10px}
+.sidebar a{display:flex;align-items:center;gap:12px;color:#dbe8f0;padding:10px 12px;border-radius:8px;margin-bottom:3px;font-size:.9rem}
+.sidebar a i{width:20px;text-align:center}
+.sidebar a:hover,.sidebar a.active{background:var(--accent);color:#fff}
+.sidebar .logout{margin-top:20px;border-top:1px solid rgba(255,255,255,.12);padding-top:14px}
+.main{margin-left:260px;flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{background:#fff;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;box-shadow:0 1px 8px rgba(0,0,0,.06);position:sticky;top:0;z-index:40}
+.topbar h2{color:var(--primary);font-size:1.15rem}
+.topbar .right{display:flex;align-items:center;gap:18px}
+.topbar .bell{position:relative;font-size:1.15rem;color:var(--muted);cursor:pointer}
+.topbar .bell span{position:absolute;top:-6px;right:-8px;background:var(--danger);color:#fff;font-size:.6rem;border-radius:10px;padding:1px 5px}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700}
+.content{padding:28px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:26px}
+.stat-card{background:#fff;border-radius:12px;padding:20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);border-left:4px solid var(--accent)}
+.stat-card i{font-size:1.6rem;color:var(--accent);background:#E6F4F6;width:52px;height:52px;border-radius:12px;display:grid;place-items:center}
+.stat-card b{font-size:1.6rem;color:var(--primary);display:block;line-height:1.1}
+.stat-card small{color:var(--muted)}
+.panel{background:#fff;border-radius:12px;box-shadow:var(--shadow);margin-bottom:24px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}
+.panel-head h3{color:var(--primary);font-size:1.05rem}
+.panel-body{padding:20px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.toolbar input{max-width:280px}
+.menu-btn{display:none;background:none;border:0;font-size:1.3rem;color:var(--primary);cursor:pointer}
+.profile-head{display:flex;gap:20px;align-items:center;margin-bottom:20px}
+.profile-head .avatar{width:80px;height:80px;font-size:1.8rem}
+.chart-box{height:280px}
+@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:none}.main{margin-left:0}.menu-btn{display:block}}

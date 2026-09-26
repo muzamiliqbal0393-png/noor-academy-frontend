@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events Management — Admin Portal | YPDC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/portal.css">
+</head>
+<body>
+<div class="portal">
+<aside class="sidebar">
+ <a class="logo" href="../index.html"><span>Y</span>YPDC</a>
+ <div class="role"><i class="fa fa-user-shield"></i> Admin Portal</div>
+ <a href="dashboard.html"><i class="fa fa-gauge"></i> Dashboard</a><a href="user-management.html"><i class="fa fa-users-cog"></i> User Management</a><a href="member-management.html"><i class="fa fa-id-badge"></i> Member Management</a><a href="directorate-management.html"><i class="fa fa-sitemap"></i> Directorate Management</a><a href="faculty-management.html"><i class="fa fa-chalkboard-teacher"></i> Faculty Management</a><a href="events-management.html"><i class="fa fa-calendar"></i> Events Management</a><a href="applications-and-approvals.html"><i class="fa fa-check-double"></i> Applications & Approvals</a><a href="attendance.html"><i class="fa fa-clipboard-check"></i> Attendance</a><a href="certificates.html"><i class="fa fa-certificate"></i> Certificates</a><a href="reports-and-analytics.html"><i class="fa fa-file-alt"></i> Reports & Analytics</a><a href="notifications.html"><i class="fa fa-bell"></i> Notifications</a><a href="website-content.html"><i class="fa fa-globe"></i> Website Content</a><a href="documents.html"><i class="fa fa-folder-open"></i> Documents</a><a href="feedback--complaints.html"><i class="fa fa-comment-dots"></i> Feedback / Complaints</a><a href="roles-and-permissions.html"><i class="fa fa-key"></i> Roles & Permissions</a>
+ <div class="logout"><a href="#" onclick="logout();return false"><i class="fa fa-sign-out-alt"></i> Logout</a></div>
+</aside>
+<div class="main">
+ <header class="topbar"><div style="display:flex;align-items:center;gap:14px"><button class="menu-btn"><i class="fa fa-bars"></i></button><h2>Events Management</h2></div>
+  <div class="right"><a href="notifications.html" class="bell"><i class="fa fa-bell"></i><span>3</span></a><span data-user-name style="font-weight:600;color:var(--primary)"></span><div class="avatar" data-user-initial></div></div></header>
+ <div class="content"><div class="panel"><div class="panel-head"><h3>All Events</h3><button class="btn btn-sm btn-primary" onclick="toast('Naya event add form (demo)')"><i class="fa fa-plus"></i> Add Event</button></div><div class="panel-body"><div class="toolbar"><input id="t_q" placeholder="Search..."><button class="btn btn-sm btn-primary" onclick="exportCSV('t')"><i class="fa fa-download"></i> Export</button></div><div class="table-wrap"><table id="t"><thead><tr><th>Event</th><th>Date</th><th>Venue</th><th>Type</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div></div></div></div>
+</div></div>
+<script src="../js/api.js"></script><script src="../js/auth.js"></script><script src="../js/data.js"></script><script src="../js/main.js"></script>
+<script>requireRole('admin');renderRows('rows', DEMO.events, ['title','date','venue','type','status']);tableSearch('t_q','t');</script>
+</body></html>

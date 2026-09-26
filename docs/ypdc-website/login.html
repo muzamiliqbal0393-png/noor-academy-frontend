@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | YPDC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<div class="auth-wrap"><div class="auth-card">
+ <a class="logo" href="index.html" style="color:var(--primary);justify-content:center;margin-bottom:14px"><span>Y</span>YPDC</a>
+ <h2>Portal Login</h2><p class="sub">Apni role ke mutabiq portal khulega</p>
+ <form class="form" id="loginForm">
+  <div><label>Email</label><input type="email" id="email" required placeholder="you@ypdc.org"></div>
+  <div><label>Password</label><input type="password" id="password" required placeholder="••••••"></div>
+  <button class="btn btn-primary" style="justify-content:center">Login <i class="fa fa-arrow-right"></i></button>
+ </form>
+ <p style="text-align:center;margin-top:14px;font-size:.9rem">New here? <a href="register.html">Register</a> · <a href="#" onclick="toast('Reset link email par bhej diya gaya','success');return false">Forgot password?</a></p>
+ <div class="demo"><b>Demo accounts</b> (password: <code>123456</code>)<br>student@ypdc.org · member@ypdc.org · director@ypdc.org<br>faculty@ypdc.org · admin@ypdc.org · alumni@ypdc.org</div>
+</div></div>
+<script src="js/api.js"></script><script src="js/auth.js"></script><script src="js/main.js"></script>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const r = await login(email.value.trim(), password.value);
+  if (r.ok) { toast('Welcome ' + r.user.name, 'success'); setTimeout(() => location.href = ROLE_HOME[r.user.role], 600); }
+  else toast(r.message, 'error');
+});
+</script></body></html>

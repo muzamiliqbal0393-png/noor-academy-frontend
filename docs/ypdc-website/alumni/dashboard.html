@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Alumni Portal | YPDC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/portal.css">
+</head>
+<body>
+<div class="portal">
+<aside class="sidebar">
+ <a class="logo" href="../index.html"><span>Y</span>YPDC</a>
+ <div class="role"><i class="fa fa-user-tie"></i> Alumni Portal</div>
+ <a href="dashboard.html"><i class="fa fa-gauge"></i> Dashboard</a><a href="alumni-profile.html"><i class="fa fa-user"></i> Alumni Profile</a><a href="academic-information.html"><i class="fa fa-graduation-cap"></i> Academic Information</a><a href="professional-information.html"><i class="fa fa-briefcase"></i> Professional Information</a><a href="skills.html"><i class="fa fa-star"></i> Skills</a><a href="alumni-network.html"><i class="fa fa-network-wired"></i> Alumni Network</a><a href="mentorship.html"><i class="fa fa-handshake"></i> Mentorship</a><a href="events.html"><i class="fa fa-calendar"></i> Events</a><a href="achievements.html"><i class="fa fa-trophy"></i> Achievements</a><a href="career-opportunities.html"><i class="fa fa-briefcase"></i> Career Opportunities</a><a href="volunteer--support-opportunities.html"><i class="fa fa-hands-helping"></i> Volunteer / Support Opportunities</a>
+ <div class="logout"><a href="#" onclick="logout();return false"><i class="fa fa-sign-out-alt"></i> Logout</a></div>
+</aside>
+<div class="main">
+ <header class="topbar"><div style="display:flex;align-items:center;gap:14px"><button class="menu-btn"><i class="fa fa-bars"></i></button><h2>Dashboard</h2></div>
+  <div class="right"><a href="notifications.html" class="bell"><i class="fa fa-bell"></i><span>3</span></a><span data-user-name style="font-weight:600;color:var(--primary)"></span><div class="avatar" data-user-initial></div></div></header>
+ <div class="content"><h2 style='color:var(--primary);margin-bottom:4px'>Welcome, <span data-user-name></span> 👋</h2><p style='color:var(--muted);margin-bottom:22px'>Yahan aapka summary hai.</p><div class="stats"><div class="stat-card"><i class="fa fa-network-wired"></i><div><b>320</b><small>Alumni Network</small></div></div><div class="stat-card"><i class="fa fa-handshake"></i><div><b>3</b><small>Mentees</small></div></div><div class="stat-card"><i class="fa fa-briefcase"></i><div><b>12</b><small>Job Openings</small></div></div><div class="stat-card"><i class="fa fa-calendar"></i><div><b>2</b><small>Alumni Events</small></div></div></div><div class="grid grid-2"><div class="panel"><div class="panel-head"><h3>Upcoming Events</h3></div><div class="panel-body"><div class="table-wrap"><table><thead><tr><th>Event</th><th>Date</th><th>Status</th></tr></thead><tbody id="dEv"></tbody></table></div></div></div><div class="panel"><div class="panel-head"><h3>Recent Notifications</h3></div><div class="panel-body"><div style='padding:10px 0;border-bottom:1px solid var(--border)'><i class='fa fa-bell' style='color:var(--accent);margin-right:8px'></i>Leadership Summit registration open <small style='color:var(--muted);float:right'>2h</small></div><div style='padding:10px 0;border-bottom:1px solid var(--border)'><i class='fa fa-bell' style='color:var(--accent);margin-right:8px'></i>Your certificate has been issued <small style='color:var(--muted);float:right'>1d</small></div><div style='padding:10px 0;border-bottom:1px solid var(--border)'><i class='fa fa-bell' style='color:var(--accent);margin-right:8px'></i>Task deadline tomorrow <small style='color:var(--muted);float:right'>2d</small></div></div></div></div></div>
+</div></div>
+<script src="../js/api.js"></script><script src="../js/auth.js"></script><script src="../js/data.js"></script><script src="../js/main.js"></script>
+<script>requireRole('alumni');renderRows('dEv', DEMO.events.slice(0,4), ['title','date','status']);</script>
+</body></html>

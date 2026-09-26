@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance — Member Portal | YPDC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/portal.css">
+</head>
+<body>
+<div class="portal">
+<aside class="sidebar">
+ <a class="logo" href="../index.html"><span>Y</span>YPDC</a>
+ <div class="role"><i class="fa fa-id-badge"></i> Member Portal</div>
+ <a href="dashboard.html"><i class="fa fa-gauge"></i> Dashboard</a><a href="profile-and-member-id.html"><i class="fa fa-user"></i> Profile & Member ID</a><a href="directorate.html"><i class="fa fa-sitemap"></i> Directorate</a><a href="responsibilities.html"><i class="fa fa-list-check"></i> Responsibilities</a><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a><a href="events--duties.html"><i class="fa fa-calendar"></i> Events / Duties</a><a href="attendance.html"><i class="fa fa-clipboard-check"></i> Attendance</a><a href="certificates.html"><i class="fa fa-certificate"></i> Certificates</a><a href="performance.html"><i class="fa fa-chart-line"></i> Performance</a><a href="reports.html"><i class="fa fa-file-alt"></i> Reports</a><a href="notifications.html"><i class="fa fa-bell"></i> Notifications</a>
+ <div class="logout"><a href="#" onclick="logout();return false"><i class="fa fa-sign-out-alt"></i> Logout</a></div>
+</aside>
+<div class="main">
+ <header class="topbar"><div style="display:flex;align-items:center;gap:14px"><button class="menu-btn"><i class="fa fa-bars"></i></button><h2>Attendance</h2></div>
+  <div class="right"><a href="notifications.html" class="bell"><i class="fa fa-bell"></i><span>3</span></a><span data-user-name style="font-weight:600;color:var(--primary)"></span><div class="avatar" data-user-initial></div></div></header>
+ <div class="content"><div class="stats"><div class="stat-card"><i class="fa fa-check"></i><div><b>18</b><small>Present</small></div></div><div class="stat-card"><i class="fa fa-times"></i><div><b>2</b><small>Absent</small></div></div><div class="stat-card"><i class="fa fa-percent"></i><div><b>90%</b><small>Attendance</small></div></div></div><div class="panel"><div class="panel-head"><h3>Attendance Record</h3><button class="btn btn-sm btn-primary" onclick="toast('QR scanner open (demo)')"><i class="fa fa-qrcode"></i> Mark via QR</button></div><div class="panel-body"><div class="toolbar"><input id="t_q" placeholder="Search..."><button class="btn btn-sm btn-primary" onclick="exportCSV('t')"><i class="fa fa-download"></i> Export</button></div><div class="table-wrap"><table id="t"><thead><tr><th>Event / Meeting</th><th>Date</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div></div></div></div>
+</div></div>
+<script src="../js/api.js"></script><script src="../js/auth.js"></script><script src="../js/data.js"></script><script src="../js/main.js"></script>
+<script>requireRole('member');renderRows('rows', DEMO.attendance, ['event','date','status']);tableSearch('t_q','t');</script>
+</body></html>

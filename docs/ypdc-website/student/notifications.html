@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notifications — Student Portal | YPDC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/portal.css">
+</head>
+<body>
+<div class="portal">
+<aside class="sidebar">
+ <a class="logo" href="../index.html"><span>Y</span>YPDC</a>
+ <div class="role"><i class="fa fa-user-graduate"></i> Student Portal</div>
+ <a href="dashboard.html"><i class="fa fa-gauge"></i> Dashboard</a><a href="profile.html"><i class="fa fa-user"></i> Profile</a><a href="membership.html"><i class="fa fa-id-card"></i> Membership</a><a href="events.html"><i class="fa fa-calendar"></i> Events</a><a href="event-registration.html"><i class="fa fa-calendar"></i> Event Registration</a><a href="volunteer-opportunities.html"><i class="fa fa-hands-helping"></i> Volunteer Opportunities</a><a href="attendance.html"><i class="fa fa-clipboard-check"></i> Attendance</a><a href="certificates.html"><i class="fa fa-certificate"></i> Certificates</a><a href="achievements.html"><i class="fa fa-trophy"></i> Achievements</a><a href="notifications.html"><i class="fa fa-bell"></i> Notifications</a><a href="feedback.html"><i class="fa fa-comment-dots"></i> Feedback</a>
+ <div class="logout"><a href="#" onclick="logout();return false"><i class="fa fa-sign-out-alt"></i> Logout</a></div>
+</aside>
+<div class="main">
+ <header class="topbar"><div style="display:flex;align-items:center;gap:14px"><button class="menu-btn"><i class="fa fa-bars"></i></button><h2>Notifications</h2></div>
+  <div class="right"><a href="notifications.html" class="bell"><i class="fa fa-bell"></i><span>3</span></a><span data-user-name style="font-weight:600;color:var(--primary)"></span><div class="avatar" data-user-initial></div></div></header>
+ <div class="content"><div class="panel"><div class="panel-head"><h3>Notifications</h3></div><div class="panel-body"><div class='card' style='margin-bottom:10px;display:flex;gap:14px;align-items:center'><i class='fa fa-bell' style='color:var(--accent)'></i><div style='flex:1'><b>Leadership Summit registration open</b><br><small style='color:var(--muted)'>2 hours ago</small></div></div><div class='card' style='margin-bottom:10px;display:flex;gap:14px;align-items:center'><i class='fa fa-bell' style='color:var(--accent)'></i><div style='flex:1'><b>Your certificate has been issued</b><br><small style='color:var(--muted)'>1 day ago</small></div></div><div class='card' style='margin-bottom:10px;display:flex;gap:14px;align-items:center'><i class='fa fa-bell' style='color:var(--accent)'></i><div style='flex:1'><b>Task deadline tomorrow: Prepare event budget</b><br><small style='color:var(--muted)'>2 days ago</small></div></div></div></div></div>
+</div></div>
+<script src="../js/api.js"></script><script src="../js/auth.js"></script><script src="../js/data.js"></script><script src="../js/main.js"></script>
+<script>requireRole('student');</script>
+</body></html>
